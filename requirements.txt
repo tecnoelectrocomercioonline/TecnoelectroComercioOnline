@@ -1,0 +1,41 @@
+appdirs
+asgiref
+autopep8
+boto3
+certifi
+coverage
+distlib
+dj-database-url
+Django
+djangorestframework
+django-compressor
+django-crispy-forms
+django-extensions
+django-filter
+django-heroku
+django-jazzmin
+django-redis
+django-redis-cache
+django-storages
+dj-database-url
+faker
+filelock
+gunicorn
+Pillow
+pytz
+redis
+requests
+sqlparse
+# psycopg2
+psycopg2-binary
+# psycopg2==2.9.0
+# psycopg2-binary==2.9.0
+python-decouple
+six
+sqlparse
+supervisor
+text-unidecode
+toml
+urllib3
+validate-email
+whitenoise

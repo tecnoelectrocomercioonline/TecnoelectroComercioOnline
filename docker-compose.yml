@@ -1,0 +1,31 @@
+version: "3.6"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=$POSTGRES_NAME
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+  web:
+    build: .
+    command: pip3 install -r requirements.txt && python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/tecnoelectrocomercioonline
+    ports:
+      - 8000:8000
+    image: tecnoelectrocomercioonline:latest
+    container_name: tecnoelectro_django
+    environment:
+      - SECRET_KEY=$SECRET_KEY
+      - EMAIL_HOST_USER=$EMAIL_HOST_USER
+      - EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD
+      - HOST=$HOST
+      - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      - AWS_STORAGE_BUCKET_NAME=$AWS_STORAGE_BUCKET_NAME
+      - REDISCLOUD_URL=$REDISCLOUD_URL
+    depends_on:
+      - db

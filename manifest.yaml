@@ -1,0 +1,173 @@
+version: v1beta11
+
+# `images` specifies all images that may need to be built for this project
+images:
+  web:
+    image: tecnoelectrocomercioonline:latest
+    dockerfile: Dockerfile
+    context: .
+
+# `deployments` tells DevSpace how to deploy this project
+deployments:
+- name: db
+  # This deployment uses `helm` but you can also define `kubectl` deployments or kustomizations
+  helm:
+    # We are deploying the so-called Component Chart: https://devspace.sh/component-chart/docs
+    componentChart: true
+    # Under `values` we can define the values for this Helm chart used during `helm install/upgrade`
+    # You may also use `valuesFiles` to load values from files, e.g. valuesFiles: ["values.yaml"]
+    values:
+      containers:
+      - env:
+        - name: POSTGRES_NAME
+          value: "$POSTGRES_NAME"
+        - name: POSTGRES_PASSWORD
+          value: "$POSTGRES_PASSWORD"
+        - name: POSTGRES_USER
+          value: "$POSTGRES_USER"
+        image: postgres
+        name: db-container
+        volumeMounts:
+        - containerPath: /var/lib/postgresql/data
+          volume:
+            name: volume-1
+            readOnly: false
+      initContainers:
+      - args:
+        - -c
+        - while [ ! -f /tmp/done ]; do sleep 2; done
+        command:
+        - sh
+        image: alpine
+        name: upload-volumes
+        volumeMounts:
+        - containerPath: /var/lib/postgresql/data
+          volume:
+            name: volume-1
+            readOnly: false
+      volumes:
+      - emptyDir: {}
+        name: volume-1
+- name: web
+  # This deployment uses `helm` but you can also define `kubectl` deployments or kustomizations
+  helm:
+    # We are deploying the so-called Component Chart: https://devspace.sh/component-chart/docs
+    componentChart: true
+    # Under `values` we can define the values for this Helm chart used during `helm install/upgrade`
+    # You may also use `valuesFiles` to load values from files, e.g. valuesFiles: ["values.yaml"]
+    values:
+      containers:
+      - args:
+        - pip3
+        - install
+        - -r
+        - requirements.txt
+        env:
+        - name: HOST
+          value: "$HOST"
+        - name: REDISCLOUD_URL
+          value: "$REDISCLOUD_URL"
+        - name: AWS_ACCESS_KEY_ID
+          value: "$AWS_ACCESS_KEY_ID"
+        - name: AWS_SECRET_ACCESS_KEY
+          value: "$AWS_SECRET_ACCESS_KEY"
+        - name: AWS_STORAGE_BUCKET_NAME
+          value: "$AWS_STORAGE_BUCKET_NAME"
+        - name: EMAIL_HOST_PASSWORD
+          value: "$EMAIL_HOST_PASSWORD"
+        - name: EMAIL_HOST_USER
+          value: "$EMAIL_HOST_USER"
+        - name: SECRET_KEY
+          value: '$SECRET_KEY'
+        image: tecnoelectrocomercioonline:latest
+        name: tecnoelectrocomercioonline
+        volumeMounts:
+        - containerPath: /tecnoelectrocomercioonline
+          volume:
+            name: volume-1
+            readOnly: false
+      initContainers:
+      - args:
+        - -c
+        - while [ ! -f /tmp/done ]; do sleep 2; done
+        command:
+        - sh
+        image: alpine
+        name: upload-volumes
+        volumeMounts:
+        - containerPath: /tecnoelectrocomercioonline
+          volume:
+            name: volume-1
+            readOnly: false
+      service:
+        ports:
+        - containerPort: 8000
+          port: 8000
+          protocol: TCP
+      volumes:
+      - emptyDir: {}
+        name: volume-1
+
+# `dev` only applies when you run `devspace dev`
+dev:
+  # `dev.ports` specifies all ports that should be forwarded while `devspace dev` is running
+  # Port-forwarding lets you access your application via localhost on your local machine
+  ports:
+  - labelSelector:
+      app.kubernetes.io/component: web
+    forward:
+    - port: 8000
+  # `dev.sync` configures a file sync between our Pods in k8s and your local project files
+  sync:
+  - labelSelector:
+      app.kubernetes.io/component: db
+    containerName: db-container
+    localSubPath: ./data/db
+    containerPath: /var/lib/postgresql/data
+  - labelSelector:
+      app.kubernetes.io/component: web
+    containerName: tecnoelectrocomercioonline
+    localSubPath: .
+    containerPath: /tecnoelectrocomercioonline
+hooks:
+- events:
+  - after:deploy:db
+  upload:
+    localPath: ./data/db
+    containerPath: /var/lib/postgresql/data
+  container:
+    labelSelector:
+      app.kubernetes.io/component: db
+    containerName: upload-volumes
+- events:
+  - after:deploy:db
+  command: touch /tmp/done
+  container:
+    labelSelector:
+      app.kubernetes.io/component: db
+    containerName: upload-volumes
+- events:
+  - after:deploy:db
+  wait:
+    running: true
+    terminatedWithCode: 0
+  container:
+    labelSelector:
+      app.kubernetes.io/component: db
+    containerName: db-container
+- events:
+  - after:deploy:web
+  upload:
+    localPath: .
+    containerPath: /tecnoelectrocomercioonline
+  container:
+    labelSelector:
+      app.kubernetes.io/component: web
+    containerName: upload-volumes
+- events:
+  - after:deploy:web
+  command: touch /tmp/done
+  container:
+    labelSelector:
+      app.kubernetes.io/component: web
+    containerName: upload-volumes

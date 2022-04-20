@@ -1,0 +1,78 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Catalogo{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'shop/css/catalog.css' %}">
+
+<body>
+  <!-- ======= Header ======= -->
+ <!-- End Header -->
+<main id="main">
+  <h1 style="text-align: center;" class="mb-4 py-2"><strong>Catalogo de Productos</strong></h1>
+
+  {% comment %} <input class="input" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por Marca o Modelo..."
+    title="Type in a name"> {% endcomment %}
+<script src="{% static 'shop/js/cata-list-filter.js' %}"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <ul>
+    <li><a href="">Todas las categorias</a></li>
+    <li><a href="">SmartPhones</a></li>
+    <li><a href="">Buds</a></li>
+    <li><a href="">Watch</a></li>
+    <li><a href="">Tablets</a></li>
+    <li><a href="">Pantallas</a></li>
+    <li><a href="">Laptops</a></li>
+    <li><a href="">Monitores</a></li>
+    {% comment %} <li><a href="">Case</a></li>
+    <li><a href="">Cpu</a></li>
+    <li><a href="">Mother</a></li>
+    <li><a href="">RAM</a></li>
+    <li><a href="">Cooling</a></li>
+    <li><a href="">Fuente</a></li>
+    <li><a href="">SSD</a></li>
+    <li><a href="">Silla</a></li>
+    <li><a href="">Teclados</a></li>
+    <li><a href="">Mousse</a></li>
+    <li><a href="">Lentes</a></li>
+    <li><a href="">Headsets</a></li>
+    <li><a href="">Mandos</a></li>
+    <li><a href="">Consolas</a></li> {% endcomment %}
+    <li><a href="">Electrodomesticos</a></li>
+    <li><a href="">Linea Blanca</a></li>
+    <li><a href="">Muebleria</a></li>
+    <li><a href="">Herramientas</a></li>
+    <li><a href="">Bicicletas</a></li>
+    <li><a href="">Maquillaje</a></li>
+  </ul>
+  <!-- BUSCADOR --->
+  <ul id="myUL" class="category">
+    {% for product in products %}
+    <div id="maincat">
+      <div id="boxcat">
+        <hr>
+        <li class="{{product.category}}">
+          <figure class="snip1171">
+            <img src="{{product.productphoto.url}}" alt="product" width="250px" height="250px" />
+            <div class="price"></div>
+            <figcaption>
+              <h3>{{product.title}}</h3>
+              <p>{{product.capacity}}</p>
+              <p>Descripción: {{product.description}}</p>
+            </figcaption>
+				<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Al carrito</button>
+            <a class="btn btn-outline-light" href="#">View</a>
+            <h4 style="float: inline-start"><strong>₡{{product.price}}</strong></h4>
+          </figure>
+        </li>
+
+      </div>
+      {{product.image.url}}
+    </div>
+{% endfor %}
+  </ul>
+</main>
+</body>
+      <script src="{% static 'shop/js/cata-list-filter.js' %}"></script>
+{% endblock content %}

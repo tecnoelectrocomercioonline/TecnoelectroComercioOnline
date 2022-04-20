@@ -1,0 +1,14 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}No encontrado{% endblock %}
+{% block content %}
+
+<h2>Te perdiste</h2>
+
+<ul>
+    <li>
+      <a href={% url 'index' %}>Volver al inicio</a>  
+        </li>
+</ul>
+  
+{% endblock %}

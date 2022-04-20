@@ -1,0 +1,288 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+            <link rel="stylesheet" href="{% static 'shop/css/body.css' %}">
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+  <div class="hero-container" data-aos="zoom-out" data-aos-easing="ease-out-cubic" data-aos-duration="3000">
+    <img class="mySlides" src="{% static 'shop/img/slider0.jpeg' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/slider1.jpeg' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/slider2.jpeg' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/slider3.jpeg' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/slider4.jpeg' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/sliderg.png' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/sliderg1.png' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/sliderg2.jpg' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/sliderg3.jpg' %}" height="100%" width="100%">
+    <img class="mySlides" src="{% static 'shop/img/sliderg4.jpg' %}" height="100%" width="100%">
+    <!-- <img class="mySlides" src="{% static 'shop/img/' %}"> -->
+  </div>
+</section>
+<main id="main">
+  <section id="about" class="about">
+    <div class="container">
+
+      <div class="row no-gutters">
+        <div class="content col-xl-5 d-flex align-items-stretch" data-aos="fade-up">
+          <div class="content">
+            <h3 class="textgradient"> ¡Somos Tecnoelectro Comercio Online!</h3>
+            <p class="black"> Tu tienda para compras de todo tipo de articulos ofrecemos financiamientos a crédito y al
+              plazo que desea</p>
+            <p> Te asesoramos con cada proceso desde el análisis de tu record crediticio, afiliación, cálculo de cuotas,
+              hasta la compra, entrega y con
+              pagos artículo.</p>
+            <a href="{% url 'catalogo' %}" class="about-btn">Catalogo <i class="bx bx-chevron-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-xl-7 d-flex align-items-stretch">
+          <div class="icon-boxes d-flex flex-column justify-content-center">
+            <div class="row">
+
+              <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+                <i class="bx bx-devices"></i>
+                <h4 class="textgradient">Te ofrecemos: </h4>
+                <p>Mas de 1000 Productos en catalogo</p>
+                <p>Variedad de marcas %100 original</p>
+                <p>12 meses garantia de fabrica</p>
+                <p>Tecnologia, Herramientas, Muebleria </p>
+                <p>Linea blanca, Electrodomesticos, Maquilaje </p>
+
+              </div>
+              <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+                <i class="bx bxs-package"></i>
+                <h4 class="textgradient">Cobertura en todo el pais</h4>
+                <p class="description"> Diferentes métodos de entrega</p>
+                <p class="description"> Solicitar envios con nuestro mensajero a la puerta de su casa o trabajo.
+                </p>
+                <p class="description"> Le ayudamos a coordinar encomiendas. </p>
+                <p class="description">O puedes retirar en el local</p>
+              </div>
+              <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+                <i class="bx bxs-credit-card"></i>
+                <h4 class="textgradient"> Las cuotas mas bajas y mejores plazos</h4>
+                <p>Disfrute de cuotas y plazos acorde a sus necesidades</p>
+                <p>Trabajamos con las mejores alianzas crediticias</p>
+                <p>Aprobacion casi inmediata del credito</p>
+              </div>
+              <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
+                <i class="bx bx-cart"></i>
+                <h4 class="textgradient">Compre y disfrute desde la comodidad de su hogar</h4>
+                <p> Por WhatsApp/Messenger te asesoramos desde donde te encuentres. </p>
+                <p> Si no tienes la tarjeta Credix o cuenta EMMA Pay te ayudamos con la afiliación y el cálculo de
+                  cuotas. </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= Services Section ======= -->
+  <section id="pasos" class="services">
+
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <h2 data-aos="fade-down" data-aos-delay="150" class="textgradient">Alianzas</h2>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-12 col-md-12 col-sm-12    align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+            <img src="{% static 'shop/img/credit.png' %}" width="200px" height="150px" alt="tecnocredit">
+            <h1 class="title textgradient">Requisitos</h1>
+            <p>Mayor 18 años de edad</p>
+            <hr>
+            <p>Cedula & Hoja delinquencia</p>
+            <hr>
+
+            <p>+6 meses cotizando CCSS)</p>
+            <hr>
+
+            <p>Constancias de salario ultimos 6 meses</p>
+            <hr>
+
+            <p>Prima del 20% del monto del artículo. Codeudor puede ser madre o padre</p>
+          </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-12 col-md-12 col-sm-12    align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+            <img src="{% static 'shop/img/emma.jpeg' %}" width="100px" height="100px" alt="emma">
+            <h1 class="title textgradient">Requisitos</h1>
+            <p>Smartphone iOS/android</p>
+            <hr>
+
+            <p>Cedula Identidad</p>
+            <hr>
+
+            <p>Asalariados, independientes
+              <hr>
+
+            <p>Amas de casa, universitarios</p>
+            <hr>
+
+            <p>Pensionados, conductores de
+              plataforma</p>
+            <hr>
+            <p>Descargar la App EMMA Pay y seguir los pasos con uno de nuestros asesores.</p>
+
+            <hr />
+
+            <a class="collapsible">Pasos </a>
+
+            <div class="content2">
+
+              <h5 class="reqs"> 1. Descargar EMMA Pay </h5>
+
+              <p> - Play Store <a
+                  href="https://play.google.com/store/apps/details?id=com.yellowpepper.unicomer.unipay.prod&hl=es_GT"><img
+                    src="{% static 'shop/img/pstore.png' %}" width="25" height="25" alt="pstore"></a></p>
+
+              <p> - APK <a href=" https://apkcombo.com/emma-pay/com.yellowpepper.unicomer.unipay.prod/"><img
+                    src="{% static 'shop/img/apk.png' %}" width="25" height="25" alt="apk"></a> </p>
+
+              <p> - Apple Store <a href="https://apps.apple.com/cr/app/emma-pay/id1455374257"><img
+                    src="{% static 'shop/img/appstore.png' %}" width="25" height="25" alt="appstore"></a></p>
+              </h4>
+
+              <p class="reqs"> 2. Registro</p>
+              <p>nuestros assores estaran disponible para guiarte siempre que desee.</p>
+              <p class="reqs"> 3. Aplicar </p>
+              <p style="text-align:center;">4. Descargar QR & comprar</p>
+
+              <a href="{% static 'shop/img/qrc.jpg' %}" download="QR"><img src="{% static 'shop/img/qrc.jpeg' %}"
+                  width="100" height="100" alt="CodigoQR"></a>
+              <p>Descarga el Codigo QR con el que podras comprar en Tecnoelectro</p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-12 col-md-12 col-sm-12    align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+            <img src="{% static 'shop/img/BAC.png' %}" width="100px" height="100px" alt="BAC">
+            <h1 class="title textgradient">Requisitos</h1>
+            <p>Tasa 0 & Minicuotas</p>
+            <hr>
+
+            <p>Crédito disponible en la tarjeta de crédito equivalente al Monto del artículo. </p>
+            <hr>
+
+            <p>Cédula identidad ambos lados. </p>
+            <hr>
+
+            <p>Email & Número telefónico.</p>
+            <hr>
+
+          </div>
+        </div>
+
+
+        <div class="col-xl-12 col-lg-12 col-12 col-md-12 col-sm-12    align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+            <img src="{% static 'shop/img/CREDIXLOGO.png' %}" width="150px" height="150px" alt="emma">
+            <h1 class="title textgradient">Requisitos</h1>
+            <p class="reqs">Nacionales:</p>
+
+            <p>Mayor 20 años y Cedula identidad ambos lados </p>
+            <hr>
+
+            <p>Evidencia de Ingresos </p>
+            <hr>
+
+            <p>Email & Número telefónico</p>
+            <hr>
+
+            <p class="reqs">Extranjeros:</p>
+
+            <p>Mayor 26 años </p>
+            <hr>
+
+            <p>Cédula Residente o Libre condición</p>
+            <hr>
+
+            <p>Evidencia de Ingresos </p>
+            <hr>
+            <p>Descargar la App Credix Pay y seguir los pasos con uno de nuestros asesores.</p>
+            <hr>
+
+            <a class="collapsible">Pasos </a>
+
+            <div class="content2">
+              <p>Descarga la aplicacion & Usa Credix Pay Par Pagar en Tecnoelectro Comercio Online
+              </p>
+              <p>Credix Pay<a
+                  href="https://play.google.com/store/apps/details?id=com.credix.credixpay&hl=en_US&gl=US"><img
+                    src="{% static 'shop/img/pstore.png' %}" width="45" height="45px" alt="pstore"></a></p>
+              <p>Apple Store <a href="https://apps.apple.com/cr/app/credixpay/id1318351910"><img
+                    src="{% static 'shop/img/appstore.png' %}" width="45px" height="45px" alt="appstore"></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section id="counts" class="counts  section-bg">
+    <div class="container">
+
+      <div class="row no-gutters">
+
+        <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+          <div class="count-box">
+            <i class="bi bi-emoji-smile" data-aos="fade-up" data-aos-delay="100"></i>
+            <span data-purecounter-start="0" data-purecounter-end="1200" data-purecounter-duration="1"
+              class="purecounter" data-aos="fade-left" data-aos-delay="100"></span>
+            <p class="textgradient"><strong>Clientes Felices</strong> y satisfechos!</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+          <div class="count-box">
+            <i class="bi bi-journal-richtext" data-aos="fade-up" data-aos-delay="200"></i>
+            <span data-purecounter-start="0" data-purecounter-end="1000" data-purecounter-duration="1"
+              class="purecounter" data-aos="fade-left" data-aos-delay="200"></span>
+            <p class="textgradient"><strong>Articulos</strong> en el catalogo</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+          <div class="count-box">
+            <i class="bi bi-headset" data-aos="fade-up" data-aos-delay="300"></i>
+            <span data-purecounter-start="0" data-purecounter-end="1700" data-purecounter-duration="1"
+              class="purecounter" data-aos="fade-left" data-aos-delay="300"></span>
+            <p class="textgradient"><strong>Consultas</strong> atendidas por llamada y WhatsApp</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+          <div class="count-box">
+            <i class="bi bi-people" data-aos="fade-up" data-aos-delay="400"></i>
+            <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"
+              data-aos="fade-left" data-aos-delay="400"></span>
+            <p class="textgradient"><strong> Opciones de Crédito</strong>
+              disponibles para comprar!</p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section id="cta" class="cta">
+    <div class="container" data-aos="zoom-in">
+
+      <div class="text-center">
+        <a class="cta-btn" href="{% url 'catalogo' %}">
+          <h3>Catálogo</h3>
+        </a>
+        <p style="color: black;"> Toca la clase que quieras ver</p>
+      </div>
+
+    </div>
+  </section>
+      <script src="{% static 'shop/js/collapsible.js' %}"></script>
+{% endblock %}
