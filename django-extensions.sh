@@ -133,15 +133,15 @@ python3 manage.py sqlcreate [–database=<databasename>] | mysql -u <db_administ
 # sqldsn
 
 # Prints the DSN for the default database
-python3manage.py sqldsn
+python3 manage.py sqldsn
 # Prints the DSN for all databases
-python3manage.py sqldsn --all
+python3 manage.py sqldsn --all
 # Print the DSN for database named 'slave'
-python3manage.py sqldsn --database=slave
+python3 manage.py sqldsn --database=slave
 # Print all DSN styles available for the default database
-python3manage.py sqldsn --style=all
+python3 manage.py sqldsn --style=all
 # Create .pgpass file for default database by using the quiet option
-python3manage.py sqldsn -q --style=pgpass > .pgpass
+python3 manage.py sqldsn -q --style=pgpass > .pgpass
 
 #https://django-extensions.readthedocs.io/en/latest/validate_templates.html
 # validate_templates
