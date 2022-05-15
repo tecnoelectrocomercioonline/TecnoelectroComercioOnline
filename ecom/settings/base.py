@@ -62,17 +62,39 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# AWS RDS POSTGRESQL DB
+# Database
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'tecnoelectrodb.cd7xvvhvfial.us-east-1.rds.amazonaws.com',
-        'NAME': config('POSTGRES_NAME'),
-        'USER': config('POSTGRES_USER'),
-        'PASSWORD': config('POSTGRES_PASSWORD'),
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+#Local PostreSQL DB
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'TecnoelectroDB',
+#         'USER': 'richardhb',
+#         'PASSWORD': 'bryanselacome123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+# AWS RDS POSTGRESQL DB
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'HOST': 'tecnoelectrodb.cd7xvvhvfial.us-east-1.rds.amazonaws.com',
+#         'NAME': config('POSTGRES_NAME'),
+#         'USER': config('POSTGRES_USER'),
+#         'PASSWORD': config('POSTGRES_PASSWORD'),
+#         'PORT': '5432'
+#     }
+# }
 
 # Redis caching
 CACHES = {
