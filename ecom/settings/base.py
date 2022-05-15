@@ -62,29 +62,29 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Database
+# Default SQL lite Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-#Local PostreSQL DB
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'TecnoelectroDB',
-#         'USER': 'richardhb',
-#         'PASSWORD': 'bryanselacome123',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
 
-# AWS RDS POSTGRESQL DB
+# HEROKU PostreSQL DYNO DB 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': config('HEROKUPOSTGRESQL_HOST'),
+        'NAME': config('HEROKUPOSTGRESQL_NAME'),
+        'USER': config('HEROKUPOSTGRESQL_USER'),
+        'PASSWORD': config('HEROKUPOSTGRESQL_PASSWORD'),
+        'PORT': 5432
+    }
+}
+
+# AWS RDS POSTGRESQL DB (NOT ANYMORE)
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
