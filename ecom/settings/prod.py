@@ -1,8 +1,7 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['tecnoelectroco.herokuapp.com']
-# ALLOWED_HOSTS = ['tecnoelectrocomercioonline.com']
+ALLOWED_HOSTS = ['tecnoelectrocomercioonline.com']
 
 # HTTPS settings
 SESSION_COOKIE_SECURE = True
