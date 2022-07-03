@@ -1,1 +1,0 @@
-curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY=NRAK-OJKNW4CAXWXHXUF9VJTOOMWXSP5 NEW_RELIC_ACCOUNT_ID=3495060 /usr/local/bin/newrelic install -n logs-integration
