@@ -18,6 +18,7 @@ class Customer(models.Model):
         auto_now_add=True, null=True, blank=True)
     profile_pic = models.ImageField(
         default="static/shop/img/profile1.png", null=True, blank=True)
+    # user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = 'customer', null=True, blank=True)
 
     def __str__(self):
         return "{} : {} []".format(self.user, self.is_active, self._is_email_verified, self.fname, self.lname, self.phone, self.email, self.date_created)

@@ -96,11 +96,10 @@ def register(request):
         user = User.objects.create_user(username=username, email=email)
         user.set_password(password)
         user.save()
-        Customer.objects.create(
-            user=user,
-            username=user.username,
-            email=user.email
-        )
+        Customer.user = user
+        Customer.name = user
+        Customer.save()
+        
         if not context['has_error']:
 
             send_activation_email(user, request)
