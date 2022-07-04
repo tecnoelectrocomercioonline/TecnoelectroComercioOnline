@@ -1,3 +1,7 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+
 * {
     max-width: 100%;
     margin: 0;
@@ -30,6 +34,9 @@ h6 {
 h3 {
     font-size: 12px;
 }
+
+
+/*Gradient*/
 
 .textgradient {
     background: -webkit-linear-gradient(to left, #3aa2cf 46%, #580caf 100%);

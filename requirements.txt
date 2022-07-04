@@ -9,6 +9,7 @@ dj-database-url
 Django
 djangorestframework
 django-compressor
+django-cors-headers
 django-crispy-forms
 django-extensions
 django-filter
@@ -16,6 +17,7 @@ django-heroku
 django-jazzmin
 django-redis
 django-redis-cache
+djangorestframework-simplejwt
 django-storages
 dj-database-url
 faker

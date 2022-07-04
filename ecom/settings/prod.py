@@ -1,6 +1,7 @@
 from .base import *
 
 DEBUG = False
+
 ALLOWED_HOSTS = ['tecnoelectrocomercioonline.com']
 
 # HTTPS settings
