@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from .models import Customer
 
+@receiver(post_save, sender=User, dispatch_uid='save_new_user_profile')
+def save_profile(sender, instance, created, **kwargs):
+    user = instance
+    if created:
+        profile = Customer(user=user)
+        profile.save()
 
 def customer_profile(sender, instance, created, **kwargs):
     if created:
