@@ -7,7 +7,7 @@ imagekit = ImageKit(
 # 1. Using Image path and image hostname or endpoint
 imagekit_url = imagekit.url({
     "path": "/default-image.jpg",
-            "url_endpoint": "https://ik.imagekit.io/your_imagekit_id/endpoint/",
+            "url_endpoint": "https://ik.imagekit.io/tecnoelectrocr/endpoint/",
             "transformation": [{"height": "300", "width": "400"}],
 }
 )
