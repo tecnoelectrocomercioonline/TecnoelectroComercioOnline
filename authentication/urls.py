@@ -1,7 +1,7 @@
 from django.urls import path, include
-from django.conf import settings
-from authentication import views as user_view
 from . import views
+from authentication import views as user_view
+from django.contrib.auth import views as auth
 
 urlpatterns = [
     path('', views.index, name='index'),
