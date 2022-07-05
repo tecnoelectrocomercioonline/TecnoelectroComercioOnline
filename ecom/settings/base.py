@@ -16,8 +16,8 @@ AUTH_USER_MODEL = 'authentication.User'
 
 # Application definition
 INSTALLED_APPS = [
-    'jazzmin',
     'crispy_forms',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -61,51 +61,25 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# Default SQL lite Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# HEROKU PostreSQL DYNO DB 
+# SQLlite DB 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': config('HEROKUPOSTGRESQL_HOST'),
-        'NAME': config('HEROKUPOSTGRESQL_NAME'),
-        'USER': config('HEROKUPOSTGRESQL_USER'),
-        'PASSWORD': config('HEROKUPOSTGRESQL_PASSWORD'),
-        'PORT': 5432
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
-# AWS RDS POSTGRESQL DB (NOT ANYMORE)
+# PostgreSQL / MySQL  DB
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'HOST': 'tecnoelectrodb.cd7xvvhvfial.us-east-1.rds.amazonaws.com',
-#         'NAME': config('POSTGRES_NAME'),
-#         'USER': config('POSTGRES_USER'),
-#         'PASSWORD': config('POSTGRES_PASSWORD'),
-#         'PORT': '5432'
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'helloworld',
+#         'USER': '<yourname>',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '',
 #     }
 # }
-
-# Redis caching
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ.get('REDISCLOUD_URL'),
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
 
 ROOT_URLCONF = 'ecom.urls'
 
@@ -325,10 +299,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',    #causes verbose duplicate notifications in django 1.9
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',    #causes verbose duplicate notifications in django 1.9
 )
-
 
 # SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
