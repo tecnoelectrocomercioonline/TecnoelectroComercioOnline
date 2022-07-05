@@ -16,8 +16,8 @@ AUTH_USER_MODEL = 'authentication.User'
 
 # Application definition
 INSTALLED_APPS = [
-    'crispy_forms',
     'jazzmin',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

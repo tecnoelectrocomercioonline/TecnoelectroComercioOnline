@@ -1,8 +1,8 @@
 from imagekitio import ImageKit
 imagekit = ImageKit(
-    private_key='private_LoyP/7BRnXZKci25YcGyUqV3Xkw=',
-    public_key='public_ZYAWyTf3Z1mDntD50znHaHd5Y5Y=',
-    url_endpoint='https://ik.imagekit.io/tecnoelectrocr'
+    private_key=IMAGEKIT_PRIVATE_KEY,
+    public_key=IMAGEKIT_PUBLIC_KEY,
+    url_endpoint=IMAGEKIT_URL_ENDPOINT
 )
 # 1. Using Image path and image hostname or endpoint
 imagekit_url = imagekit.url({
