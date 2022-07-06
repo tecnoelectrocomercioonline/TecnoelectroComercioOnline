@@ -14,6 +14,7 @@ SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_RELOAD = True
 SECURE_HSTS_SUBDOMAINS = True
 
+# PostgreSQL / MySQL dB
 # AWS RDS POSTGRESQL DB
 DATABASES = {
     'default': {
@@ -27,12 +28,12 @@ DATABASES = {
 }
 
 # Redis caching
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": os.environ.get('REDISCLOUD_URL'),
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         }
-#     }
-# }
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.environ.get('REDISCLOUD_URL'),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}

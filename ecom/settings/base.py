@@ -69,18 +69,6 @@ DATABASES = {
     }
 }
 
-# PostgreSQL / MySQL  DB
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'helloworld',
-#         'USER': '<yourname>',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
 ROOT_URLCONF = 'ecom.urls'
 
 WSGI_APPLICATION = 'ecom.wsgi.application'
