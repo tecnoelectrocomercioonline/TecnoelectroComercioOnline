@@ -6,6 +6,26 @@ ALLOWED_HOSTS = ['localhost']
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# SQLlite DB 
+DATABASES = {
+    'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+# PostgreSQL / MySQL DB: DEV
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'HOST': config('HEROKUPOSTGRESQL_HOST'),
+#         'NAME': config('HEROKUPOSTGRESQL_NAME_DEV'),
+#         'USER': config('HEROKUPOSTGRESQL_USER'),
+#         'PASSWORD': config('HEROKUPOSTGRESQL_PASSWORD'),
+#         'PORT': '5432'
+#     }
+# }
+
 # Redis caching
 CACHES = {
     "default": {

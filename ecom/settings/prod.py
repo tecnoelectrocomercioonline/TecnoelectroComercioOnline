@@ -14,8 +14,7 @@ SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_RELOAD = True
 SECURE_HSTS_SUBDOMAINS = True
 
-# PostgreSQL / MySQL dB
-# AWS RDS POSTGRESQL DB
+# PostgreSQL / MySQL dB: PROD
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
