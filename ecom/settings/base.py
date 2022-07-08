@@ -14,6 +14,13 @@ SECRET_KEY = config('SECRET_KEY')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Users 
+AUTH_PROFILE_MODULE = 'shop.UserProfile'
+
+AUTH_USER_MODEL = 'authentication.User'
+
+ROOT_URLCONF = 'ecom.urls'
+
 # Application definition
 INSTALLED_APPS = [
     'crispy_forms',
@@ -257,6 +264,17 @@ DATABASES = {
     }
 }
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder', # uses STATICFILES_FIRS
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder', # when apps have static
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder', 
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder', #causes verbose duplicate notifications in django 1.9
+)
+
 # SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -264,53 +282,6 @@ EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Users 
-AUTH_PROFILE_MODULE = 'shop.UserProfile'
-
-AUTH_USER_MODEL = 'authentication.User'
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-
-ROOT_URLCONF = 'ecom.urls'
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=120)
-}
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',    #causes verbose duplicate notifications in django 1.9
-)
-
-# CSS, JS, Images
-STATIC_URL = '/static/'
-
-#static files for templates
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-# Collects the static files into STATIC_ROOT (AWS S3) For Example 
-# & search for all the static files on your system and move them here
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_ROOT = os.path.join(BASE_DIR, 'live-static-files','static-root')
-
-# Help us serves StaticFiles in Prod
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-MEDIA_URL = '/media/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'live-static-files','media-root')
-
-# _ROOT --> live-static-files/
 
 # AWS RDS AND S3 Config
   
