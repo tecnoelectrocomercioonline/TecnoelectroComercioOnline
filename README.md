@@ -30,6 +30,10 @@
 
 ### Python 3.7 / Django 3.2: 
   Template inheritance Parent/Child HTML layout based in Jinja2 library
+ 
+## Libraries
+
+
 
 ### Django-admin: 
   Admin UI customization with django-jazzmin library, Django-extensions library for management commands, additional database fields, admin extensions, admin models generator, sync with s3, look DB diffs, delete squashed migrations, reset DB, list model info, list signals, merge model instances, validate templates, print settings, export emails
