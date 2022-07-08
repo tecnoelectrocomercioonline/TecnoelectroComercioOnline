@@ -15,16 +15,16 @@ SECURE_HSTS_RELOAD = True
 SECURE_HSTS_SUBDOMAINS = True
 
 # PostgreSQL / MySQL dB: PROD
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': config('HEROKUPOSTGRESQL_HOST'),
-        'NAME': config('HEROKUPOSTGRESQL_NAME'),
-        'USER': config('HEROKUPOSTGRESQL_USER'),
-        'PASSWORD': config('HEROKUPOSTGRESQL_PASSWORD'),
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'HOST': config('HEROKUPOSTGRESQL_HOST'),
+#         'NAME': config('HEROKUPOSTGRESQL_NAME'),
+#         'USER': config('HEROKUPOSTGRESQL_USER'),
+#         'PASSWORD': config('HEROKUPOSTGRESQL_PASSWORD'),
+#         'PORT': '5432'
+#     }
+# }
 
 # Redis caching
 CACHES = {

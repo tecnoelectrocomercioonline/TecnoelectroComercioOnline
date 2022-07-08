@@ -1,6 +1,8 @@
 from decouple import config
 from pathlib import Path
 import os
+import datetime
+
 # from redis import Redis
 # import urllib.parse as urlparse
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,9 +12,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # ALLOWED_HOSTS = ['localhost', 'tecnoelectrocomercioonline.com']
 
-AUTH_PROFILE_MODULE = 'shop.UserProfile'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-AUTH_USER_MODEL = 'authentication.User'
 
 # Application definition
 INSTALLED_APPS = [
@@ -61,10 +61,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'ecom.urls'
-
-WSGI_APPLICATION = 'ecom.wsgi.application'
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -213,11 +209,6 @@ TEMPLATES = [
     },
 ]
 
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -274,6 +265,22 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Users 
+AUTH_PROFILE_MODULE = 'shop.UserProfile'
+
+AUTH_USER_MODEL = 'authentication.User'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=120)
+}
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -281,19 +288,30 @@ STATICFILES_FINDERS = (
     # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',    #causes verbose duplicate notifications in django 1.9
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-#Collects the static files into STATIC_ROOT (AWS S3), search for all the static files on your system and move them here
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# CSS, JS, Images
 STATIC_URL = '/static/'
+
 #static files for templates
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+# Collects the static files into STATIC_ROOT (AWS S3) For Example 
+# & search for all the static files on your system and move them here
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'live-static-files','static-root')
 
-# AWS RDS AND S3  
+# Help us serves StaticFiles in Prod
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'live-static-files','media-root')
+
+# _ROOT --> live-static-files/
+
+# AWS RDS AND S3 Config
+  
 # AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 # AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 # AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
@@ -306,7 +324,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'myapp.storages.MediaStorage'
 
-# Testing for QA Env (Not configured)
+# Testing for TEST Env (Not configured)
 TESTING = config('TESTING')
 if config('TESTING') == True:
     config('TESTING')

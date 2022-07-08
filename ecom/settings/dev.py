@@ -4,7 +4,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# HTTPS settings
+SECURE_SSL_REDIRECT=False
+SESSION_COOKIE_SECURE=False
+CSRF_COOKIE_SECURE=False
 
 # SQLlite DB 
 DATABASES = {
@@ -18,10 +21,10 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'HOST': config('HEROKUPOSTGRESQL_HOST'),
-#         'NAME': config('HEROKUPOSTGRESQL_NAME_DEV'),
-#         'USER': config('HEROKUPOSTGRESQL_USER'),
-#         'PASSWORD': config('HEROKUPOSTGRESQL_PASSWORD'),
+#         'HOST': config('POSTGRES_HOST_DEV'),
+#         'NAME': config('POSTGRESNAME_DEV'),
+#         'USER': config('POSTGRES_USER_DEV'),
+#         'PASSWORD': config('POSTGRES_PASSWORD_DEV'),
 #         'PORT': '5432'
 #     }
 # }
@@ -38,7 +41,3 @@ CACHES = {
         }
     }
 }
-
-SECURE_SSL_REDIRECT=False
-SESSION_COOKIE_SECURE=False
-CSRF_COOKIE_SECURE=False
