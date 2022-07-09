@@ -1,0 +1,6 @@
+CREATE DATABASE TestDB;
+CREATE DATABASE
+
+/l
+
+/c

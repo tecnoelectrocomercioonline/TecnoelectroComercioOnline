@@ -1,5 +1,6 @@
 from django.db import models
 from authentication.models import Customer
+
 class Categories(models.TextChoices):
     SMARTPHONES = "smartphone-1"
     BUDS = "buds-1"

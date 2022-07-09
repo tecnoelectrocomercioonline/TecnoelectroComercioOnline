@@ -18,6 +18,8 @@ AUTH_PROFILE_MODULE = 'shop.UserProfile'
 
 AUTH_USER_MODEL = 'authentication.User'
 
+DJANGO_SETTINGS_MODULE = 'ecom.urls'
+
 ROOT_URLCONF = 'ecom.urls'
 
 WSGI_APPLICATION = 'ecom.wsgi.application'
