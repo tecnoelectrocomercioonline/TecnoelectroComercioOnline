@@ -26,6 +26,7 @@ SIMPLE_JWT = {
 # PostgreSQL / MySQL dB: PROD
 DATABASES = {
     'default': {
+        # 'ENGINE':'django.db.backends.postgresql_psycopg2', #If ERRORS USE THIS
         'ENGINE': 'django.db.backends.postgresql',
         'HOST': config('HEROKUPOSTGRESQL_HOST'),
         'NAME': config('HEROKUPOSTGRESQL_NAME'),

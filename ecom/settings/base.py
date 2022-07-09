@@ -13,7 +13,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# Users 
+# Users
 AUTH_PROFILE_MODULE = 'shop.UserProfile'
 
 AUTH_USER_MODEL = 'authentication.User'
@@ -24,6 +24,7 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 # Application definition
 INSTALLED_APPS = [
+    'authentication',
     'crispy_forms',
     'jazzmin',
     'django.contrib.admin',
@@ -35,7 +36,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_filters',
     'storages',
-    'authentication',
     'shop',
     'rest_framework'
 ]
@@ -256,9 +256,9 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder', # uses STATICFILES_FIRS
+    'django.contrib.staticfiles.finders.FileSystemFinder',  # uses STATICFILES_FIRS
     # 'django.contrib.staticfiles.finders.AppDirectoriesFinder', # when apps have static
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder', 
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
     # 'django.contrib.staticfiles.finders.AppDirectoriesFinder', #causes verbose duplicate notifications in django 1.9
 )
 
