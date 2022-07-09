@@ -3,3 +3,4 @@ from .base import *
 
 # django_heroku.settings(locals())
 
+ROOT_URLCONF = 'ecom.urls'
