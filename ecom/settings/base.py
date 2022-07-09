@@ -20,6 +20,8 @@ AUTH_USER_MODEL = 'authentication.User'
 
 ROOT_URLCONF = 'ecom.urls'
 
+WSGI_APPLICATION = 'ecom.wsgi.application'
+
 # Application definition
 INSTALLED_APPS = [
     'crispy_forms',
