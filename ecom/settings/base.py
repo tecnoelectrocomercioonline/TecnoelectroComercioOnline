@@ -18,8 +18,6 @@ AUTH_PROFILE_MODULE = 'shop.UserProfile'
 
 AUTH_USER_MODEL = 'authentication.User'
 
-DJANGO_SETTINGS_MODULE = 'ecom.urls'
-
 ROOT_URLCONF = 'ecom.urls'
 
 WSGI_APPLICATION = 'ecom.wsgi.application'
@@ -199,9 +197,7 @@ JAZZMIN_SETTINGS = {
     "language_chooser": True,
 }
 
-
 # https://docs.djangoproject.com/en/3.2/howto/overriding-templates/
-# Template settings
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -273,8 +269,6 @@ EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
-
 
 # Testing for TEST Env (Not configured)
 TESTING = config('TESTING')
