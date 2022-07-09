@@ -1,7 +1,6 @@
 from decouple import config
 from pathlib import Path
-import os
-import datetime
+from .settings import *
 
 # from redis import Redis
 # import urllib.parse as urlparse
