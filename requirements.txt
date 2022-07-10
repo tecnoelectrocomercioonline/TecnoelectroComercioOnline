@@ -19,6 +19,7 @@ django-redis
 django-redis-cache
 djangorestframework-simplejwt
 django-storages
+django-pipeline
 dj-database-url
 faker
 filelock
