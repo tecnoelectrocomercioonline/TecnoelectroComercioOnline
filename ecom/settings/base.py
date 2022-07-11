@@ -24,7 +24,6 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 # Application definition
 INSTALLED_APPS = [
-    'authentication',
     'crispy_forms',
     'jazzmin',
     'django.contrib.admin',
@@ -36,6 +35,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_filters',
     'storages',
+    'authentication',
     'shop',
     'rest_framework'
 ]
@@ -250,10 +250,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',  # uses STATICFILES_FIRS
