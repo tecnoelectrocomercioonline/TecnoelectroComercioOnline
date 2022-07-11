@@ -23,7 +23,7 @@ ROOT_URLCONF = 'ecom.urls'
 
 WSGI_APPLICATION = 'ecom.wsgi.application'
 
-DEBUG = True
+DEBUG = config('DEBUG')
 
 # Application definition
 INSTALLED_APPS = [
@@ -274,7 +274,7 @@ STATICFILES_FINDERS = (
 )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static',]
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # That is all, but if you want more performance you should enable caching and compression support like this :
