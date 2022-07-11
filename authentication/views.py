@@ -96,9 +96,14 @@ def register(request):
         user = User.objects.create_user(username=username, email=email)
         user.set_password(password)
         user.save()
-        Customer.user = user
-        Customer.name = user
+        Customer.objects.create(
+        user=user,
+        username=user.username,
+        email=user.email
+        )
         Customer.save()
+        # Customer.user = user
+        # Customer.name = user
         
         if not context['has_error']:
 

@@ -11,12 +11,12 @@ SESSION_COOKIE_SECURE=False
 CSRF_COOKIE_SECURE=False
 
 # SQLlite DB 
-DATABASES = {
-    'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # PostgreSQL / MySQL DB: Local Dev
 # DATABASES = {
@@ -29,6 +29,19 @@ DATABASES = {
 #         'PORT': '5432'
 #     }
 # }
+
+# PostgreSQL / MySQL dB: PROD
+DATABASES = {
+    'default': {
+        # 'ENGINE':'django.db.backends.postgresql_psycopg2', #If ERRORS USE THIS
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': config('HEROKUPOSTGRESQL_HOST'),
+        'NAME': config('HEROKUPOSTGRESQL_NAME'),
+        'USER': config('HEROKUPOSTGRESQL_USER'),
+        'PASSWORD': config('HEROKUPOSTGRESQL_PASSWORD'),
+        'PORT': '5432'
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
