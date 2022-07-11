@@ -23,6 +23,8 @@ ROOT_URLCONF = 'ecom.urls'
 
 WSGI_APPLICATION = 'ecom.wsgi.application'
 
+DEBUG = True
+
 # Application definition
 INSTALLED_APPS = [
     'crispy_forms',
