@@ -286,10 +286,7 @@ else:
 # If you want to apply compression but don’t want the caching behaviour then you can use:
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 MEDIA_URL = 'mediaUploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = BASE_DIR / 'mediafiles'
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Testing for TEST Env (Not configured)
 TESTING = config('TESTING')

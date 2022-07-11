@@ -5,6 +5,7 @@ boto3
 certifi
 coverage
 cython
+bcrypt
 distlib
 django
 djangorestframework

@@ -1,5 +1,6 @@
 from django.db import models
 from authentication.models import Customer
+# from django.contrib.auth.models import User
 
 class Categories(models.TextChoices):
     SMARTPHONES = "smartphone-1"
@@ -17,6 +18,7 @@ class Categories(models.TextChoices):
 
 
 class Productos(models.Model):
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=75)
     capacity = models.TextField(max_length=100)
     description = models.TextField(max_length=100)
