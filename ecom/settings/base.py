@@ -275,31 +275,21 @@ STATICFILES_FINDERS = (
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static',]
+if DEBUG:
+        #STATICFILES_DIRS = [BASE_DIR / 'static',]
+        STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+else:
+        STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # That is all, but if you want more performance you should enable caching and compression support like this :
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # If you want to apply compression but don’t want the caching behaviour then you can use:
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'mediafiles'
-
-
-# STATIC_URL = '/static/'
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),
-# ]
-# # STATICFILES_DIRS = [BASE_DIR / 'static',]
-# # MEDIA_URL = '/images/'
-# # MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+MEDIA_URL = 'mediaUploads'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
-if DEBUG:
-        STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')]
-else:
-        STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Testing for TEST Env (Not configured)
 TESTING = config('TESTING')
