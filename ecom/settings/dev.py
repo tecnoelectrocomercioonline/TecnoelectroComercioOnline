@@ -1,14 +1,8 @@
 from .base import *
-import os
 
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
-
-# HTTPS settings
-SECURE_SSL_REDIRECT=False
-SESSION_COOKIE_SECURE=False
-CSRF_COOKIE_SECURE=False
 
 # SQLlite DB 
 # DATABASES = {
