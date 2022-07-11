@@ -276,8 +276,8 @@ STATICFILES_FINDERS = (
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 if DEBUG:
-    #STATICFILES_DIRS = [BASE_DIR / 'static',]
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
