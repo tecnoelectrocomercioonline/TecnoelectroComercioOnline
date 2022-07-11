@@ -1,9 +1,10 @@
 from decouple import config
 from pathlib import Path
 from .settings import *
-
+import os
 # from redis import Redis
 # import urllib.parse as urlparse
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -271,7 +272,7 @@ STATICFILES_FINDERS = (
 )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / 'static',]
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # That is all, but if you want more performance you should enable caching and compression support like this :
@@ -293,6 +294,10 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
+if DEBUG:
+        STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')]
+else:
+        STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Testing for TEST Env (Not configured)
 TESTING = config('TESTING')
