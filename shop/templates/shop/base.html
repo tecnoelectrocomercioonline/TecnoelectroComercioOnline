@@ -65,7 +65,7 @@
                     <button class="btn btn-sm"  type="submit"><a
                             href="{% url 'register' %}">Registrar</a></button>
                     <br />
-                    <button class="btn btn-sm" type="submit"><a href="{% url 'login_user' %}">Iniciar
+                    <button class="btn btn-sm" type="submit"><a href="{% url 'login' %}">Iniciar
                             Sesion</a></button>
                     {% endif %}
                 </ul>
@@ -237,6 +237,5 @@
             <!-- Template Main JS File -->
       <script src="{% static 'shop/js/main.js' %}"></script>
             <script defer src="{% static 'shop/js/cart.js' %}"></script>
-            <script defer src="{% static 'shop/js/token.js' %}"></script>
    </body>
 </html>

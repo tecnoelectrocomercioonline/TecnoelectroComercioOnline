@@ -17,7 +17,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Users
 AUTH_PROFILE_MODULE = 'shop.UserProfile'
 
-AUTH_USER_MODEL = 'authentication.User'
+AUTH_USER_MODEL = 'authentication.CustomUser'
 
 ROOT_URLCONF = 'ecom.urls'
 
@@ -26,7 +26,8 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 DEBUG = config('DEBUG')
 
 # Application definition
-INSTALLED_APPS = [
+INSTALLED_APPS = [ 
+    'captcha',
     'crispy_forms',
     'jazzmin',
     'django.contrib.admin',
@@ -285,8 +286,8 @@ else:
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # If you want to apply compression but don’t want the caching behaviour then you can use:
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-MEDIA_URL = 'mediaUploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Testing for TEST Env (Not configured)
 TESTING = config('TESTING')

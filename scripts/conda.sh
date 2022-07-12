@@ -1,1 +1,0 @@
-conda install sqlite3

@@ -19,11 +19,14 @@ django-jazzmin
 django-redis
 django-redis-cache
 djangorestframework-simplejwt
-django-storages
 django-pipeline
+django-recaptcha
+django-storages
+django-tinymce
 dj-database-url
 faker
 filelock
+fontawesomefree
 gunicorn
 imagekitio
 Pillow
@@ -42,7 +45,6 @@ pysqlite3
 python-decouple
 six
 sqlparse
-supervisor
 text-unidecode
 toml
 urllib3

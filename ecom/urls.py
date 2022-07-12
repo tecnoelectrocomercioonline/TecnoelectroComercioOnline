@@ -8,7 +8,7 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     path('', include('shop.urls')),
     path('', include('authentication.urls')),
-    path('', include('api.urls')),
+    path('api/', include('api.urls')),
     # url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     # url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,206 +1,226 @@
+from typing import Protocol
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib import messages
-from validate_email import validate_email
-from django.urls import reverse
-from helpers.decorators import auth_user_should_not_access
-from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
+from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
-from django.conf import settings
-import threading
-from django.shortcuts import render, HttpResponse, redirect
-from django.contrib import messages
-import bcrypt
-from .models import User, Customer
-from .utils import generate_token
+from django.db.models.query_utils import Q
 
+from .forms import UserRegistrationForm, UserLoginForm, UserUpdateForm, SetPasswordForm, PasswordResetForm
+from .decorators import user_not_authenticated
+from .tokens import account_activation_token
 
 def index(request):
 	return render(request, 'shop/body.html', {'title': 'index'})
 
-class EmailThread(threading.Thread):
-
-    def __init__(self, email):
-        self.email = email
-        threading.Thread.__init__(self)
-
-    def run(self):
-        self.email.send()
-
-def register(request):
-    errors = User.objects.validator(request.POST)
-    if len(errors):
-        for tag, error in errors.iteritems():
-            messages.error(request, error, extra_tags=tag)
-        return redirect('/')
-
-    hashed_password = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
-    user = User.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'], password=hashed_password, email=request.POST['email'])
-    user.save()
-    request.session['id'] = user.id
-    return redirect('/success')
-
-def login_user(request):
-    if (User.objects.filter(email=request.POST['login_email']).exists()):
-        user = User.objects.filter(email=request.POST['login_email'])[0]
-        if (bcrypt.checkpw(request.POST['login_password'].encode(), user.password.encode())):
-            request.session['id'] = user.id
-            return redirect('/success')
-    return redirect('/')
-
-def success(request):
-    user = User.objects.get(id=request.session['id'])
-    context = {
-        "user": user
-    }
-    return render(request, 'authentication/success.html', context)
-
-# def send_activation_email(user, request):
-#     current_site = get_current_site(request)
-#     email_subject = 'Activate your account'
-#     email_body = render_to_string('authentication/activate.html', {
-#         'user': user,
-#         'domain': current_site,
-#         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-#         'token': generate_token.make_token(user)
-#     })
-
-#     email = EmailMessage(subject=email_subject, body=email_body,
-#                          from_email=settings.EMAIL_HOST_USER,
-#                          to=[user.email]
-#                          )
-#     # if not settings.TESTING:
-#     EmailThread(email).start()
-
-
-# @auth_user_should_not_access
-# def register(request):
-#     if request.method == "POST":
-#         context = {'has_error': False, 'data': request.POST}
-#         email = request.POST.get('email')
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         password2 = request.POST.get('password2')
-
-#         if len(password) < 6:
-#             messages.add_message(request, messages.ERROR,
-#                                  'Password should be at least 6 characters')
-#             context['has_error'] = True
-
-#         if password != password2:
-#             messages.add_message(request, messages.ERROR,
-#                                  'Password mismatch')
-#             context['has_error'] = True
-
-#         if not validate_email(email):
-#             messages.add_message(request, messages.ERROR,
-#                                  'Enter a valid email address')
-#             context['has_error'] = True
-
-#         if not username:
-#             messages.add_message(request, messages.ERROR,
-#                                  'Username is required')
-#             context['has_error'] = True
-
-#         if User.objects.filter(username=username).exists():
-#             messages.add_message(request, messages.ERROR,
-#                                  'Username is taken, choose another one')
-#             context['has_error'] = True
-
-#             return render(request, 'authentication/register.html', context, status=409)
-
-#         if User.objects.filter(email=email).exists():
-#             messages.add_message(request, messages.ERROR,
-#                                  'Email is taken, choose another one')
-#             context['has_error'] = True
-
-#             return render(request, 'authentication/register.html', context, status=409)
-
-#         if context['has_error']:
-#             return render(request, 'authentication/register.html', context)
-
-#         user = User.objects.create_user(username=username, email=email)
-#         user.set_password(password)
-#         user.save()
-#         Customer.objects.create(
-#         user=user,
-#         username=user.username,
-#         email=user.email
-#         )
-#         Customer.save()
-#         # Customer.user = user
-#         # Customer.name = user
-        
-#         if not context['has_error']:
-
-#             send_activation_email(user, request)
-
-#             messages.add_message(request, messages.SUCCESS,
-#                                  'We sent you an email to verify your account')
-#             return redirect('login_user')
-
-#     return render(request, 'authentication/register.html')
-
-
-# @auth_user_should_not_access
-# def login_user(request):
-
-#     if request.method == 'POST':
-#         context = {'data': request.POST}
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-
-#         user = authenticate(request, username=username, password=password)
-
-#         if user and not user.is_email_verified:
-#             messages.add_message(request, messages.ERROR,
-#                                  'Email is not verified, please check your email inbox')
-#             return render(request, 'authentication/login.html', context, status=401)
-
-#         if not user:
-#             messages.add_message(request, messages.ERROR,
-#                                  'Invalid credentials, try again')
-#             return render(request, 'authentication/login.html', context, status=401)
-
-#         login(request, user)
-
-#         messages.add_message(request, messages.SUCCESS,
-#                              f'Welcome {user.username}')
-
-#         return redirect(reverse('index'))
-
-#     return render(request, 'authentication/login.html')
-
-
-def logout_user(request):
-
-    logout(request)
-
-    messages.add_message(request, messages.SUCCESS,
-                         'Successfully logged out')
-
-    return redirect(reverse('authentication/login.html'))
-
-
-def activate_user(request, uidb64, token):
-
+def activate(request, uidb64, token):
+    User = get_user_model()
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
-
         user = User.objects.get(pk=uid)
-
-    except Exception as e:
+    except:
         user = None
 
-    if user and generate_token.check_token(user, token):
-        user.is_email_verified = True
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
         user.save()
 
-        messages.add_message(request, messages.SUCCESS,
-                             'Email verified, you can now login')
-        return redirect(reverse('login_user'))
+        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
+        return redirect('login')
+    else:
+        messages.error(request, "Activation link is invalid!")
 
-    return render(request, 'authentication/activate-failed.html', {"user": user})
+    return redirect('homepage')
+
+def activateEmail(request, user, to_email):
+    mail_subject = "Activate your user account."
+    message = render_to_string("activate.html", {
+        'user': user.username,
+        'domain': get_current_site(request).domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user),
+        "protocol": 'https' if request.is_secure() else 'http'
+    })
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    if email.send():
+        messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
+                received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
+    else:
+        messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
+
+
+@user_not_authenticated
+def register(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active=False
+            user.save()
+            activateEmail(request, user, form.cleaned_data.get('email'))
+            return redirect('homepage')
+
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+
+    else:
+        form = UserRegistrationForm()
+
+    return render(
+        request=request,
+        template_name="authentication/register.html",
+        context={"form": form}
+        )
+
+@login_required
+def custom_logout(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect("homepage")
+
+@user_not_authenticated
+def custom_login(request):
+    if request.method == "POST":
+        form = UserLoginForm(request=request, data=request.POST)
+        if form.is_valid():
+            user = authenticate(
+                username=form.cleaned_data["username"],
+                password=form.cleaned_data["password"],
+            )
+            if user is not None:
+                login(request, user)
+                messages.success(request, f"Hello <b>{user.username}</b>! You have been logged in")
+                return redirect("homepage")
+
+        else:
+            for key, error in list(form.errors.items()):
+                if key == 'captcha' and error[0] == 'This field is required.':
+                    messages.error(request, "You must pass the reCAPTCHA test")
+                    continue
+                
+                messages.error(request, error) 
+
+    form = UserLoginForm()
+
+    return render(
+        request=request,
+        template_name="authentication/login.html",
+        context={"form": form}
+        )
+
+def profile(request, username):
+    if request.method == "POST":
+        user = request.user
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            user_form = form.save()
+            messages.success(request, f'{user_form.username}, Your profile has been updated!')
+            return redirect("profile", user_form.username)
+
+        for error in list(form.errors.values()):
+            messages.error(request, error)
+
+    user = get_user_model().objects.filter(username=username).first()
+    if user:
+        form = UserUpdateForm(instance=user)
+        form.fields['description'].widget.attrs = {'rows': 1}
+        return render(
+            request=request,
+            template_name="authentication/profile.html",
+            context={"form": form}
+            )
+    
+    return redirect("homepage")
+
+@login_required
+def password_change(request):
+    user = request.user
+    if request.method == 'POST':
+        form = SetPasswordForm(user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your password has been changed")
+            return redirect('login')
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+
+    form = SetPasswordForm(user)
+    return render(request, 'password_reset_confirm.html', {'form': form})
+
+@user_not_authenticated
+def password_reset_request(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            user_email = form.cleaned_data['email']
+            associated_user = get_user_model().objects.filter(Q(email=user_email)).first()
+            if associated_user:
+                subject = "Password Reset request"
+                message = render_to_string("reset_password.html", {
+                    'user': associated_user,
+                    'domain': get_current_site(request).domain,
+                    'uid': urlsafe_base64_encode(force_bytes(associated_user.pk)),
+                    'token': account_activation_token.make_token(associated_user),
+                    "protocol": 'https' if request.is_secure() else 'http'
+                })
+                email = EmailMessage(subject, message, to=[associated_user.email])
+                if email.send():
+                    messages.success(request,
+                        """
+                        <h2>Password reset sent</h2><hr>
+                        <p>
+                            We've emailed you instructions for setting your password, if an account exists with the email you entered. 
+                            You should receive them shortly.<br>If you don't receive an email, please make sure you've entered the address 
+                            you registered with, and check your spam folder.
+                        </p>
+                        """
+                    )
+                else:
+                    messages.error(request, "Problem sending reset password email, <b>SERVER PROBLEM</b>")
+
+            return redirect('homepage')
+
+        for key, error in list(form.errors.items()):
+            if key == 'captcha' and error[0] == 'This field is required.':
+                messages.error(request, "You must pass the reCAPTCHA test")
+                continue
+
+    form = PasswordResetForm()
+    return render(
+        request=request, 
+        template_name="authentication/password_reset.html", 
+        context={"form": form}
+        )
+
+def passwordResetConfirm(request, uidb64, token):
+    User = get_user_model()
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except:
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Your password has been set. You may go ahead and <b>log in </b> now.")
+                return redirect('homepage')
+            else:
+                for error in list(form.errors.values()):
+                    messages.error(request, error)
+
+        form = SetPasswordForm(user)
+        return render(request, 'password_reset_confirm.html', {'form': form})
+    else:
+        messages.error(request, "Link is expired")
+
+    messages.error(request, 'Something went wrong, redirecting back to Homepage')
+    return redirect("homepage")
