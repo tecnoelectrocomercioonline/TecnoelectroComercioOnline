@@ -10,9 +10,9 @@ LOGIN_URL = 'login'
 
 AUTHENTICATION_BACKENDS = ['authentication.backends.EmailBackend']
 
-RECAPTCHA_PUBLIC_KEY = '6LddA3kgAAAAAPf1mAJmEc7Ku0cssbD5QMha09NT'
-RECAPTCHA_PRIVATE_KEY = '6LddA3kgAAAAAJY-2-Q0J3QX83DFJwFR1hXqmN8q'
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+# RECAPTCHA_PUBLIC_KEY = ''
+# RECAPTCHA_PRIVATE_KEY = ''
+# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 PASSWORD_RESET_TIMEOUT = 14400
 

@@ -27,7 +27,7 @@ DEBUG = config('DEBUG')
 
 # Application definition
 INSTALLED_APPS = [
-    'captcha',
+    # 'captcha',
     'crispy_forms',
     'jazzmin',
     'django.contrib.admin',
