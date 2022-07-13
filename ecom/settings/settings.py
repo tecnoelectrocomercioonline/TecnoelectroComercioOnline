@@ -1,10 +1,10 @@
 from .base import *
-# import django_heroku
+import socket
 
-# django_heroku.settings(locals())
+if socket.gethostname()=="Brealys-MacBook-Air.local":
+    from .dev import *
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 

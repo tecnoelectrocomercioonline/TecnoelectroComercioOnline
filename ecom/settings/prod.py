@@ -3,13 +3,10 @@ import os
 import datetime
 
 DEBUG = False
+ALLOWED_HOSTS = ['localhost', 'tecnoelectrocomercioonline.com']
+# ALLOWED_HOSTS = ['tecnoelectrocomercioonline.com']
 
-ALLOWED_HOSTS = ['tecnoelectrocomercioonline.com']
-
-
-
-# # SECURITY
-
+# SECURITY
 # HTTPS settings
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -40,7 +37,6 @@ SECURE_HSTS_SECONDS = 60
 # SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 #     "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True
 # )
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=120)

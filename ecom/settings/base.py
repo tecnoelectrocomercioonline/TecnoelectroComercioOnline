@@ -10,10 +10,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 
-# ALLOWED_HOSTS = ['localhost', 'tecnoelectrocomercioonline.com']
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 # Users
 AUTH_PROFILE_MODULE = 'shop.UserProfile'
 
@@ -255,10 +251,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 # SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -273,7 +265,6 @@ STATICFILES_FINDERS = (
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
     # 'django.contrib.staticfiles.finders.AppDirectoriesFinder', #causes verbose duplicate notifications in django 1.9
 )
-
 
 USE_SPACES = os.getenv('USE_SPACES') 
 
@@ -312,9 +303,6 @@ if DEBUG:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# Testing for TEST Env (Not configured)
-TESTING = config('TESTING')
-if config('TESTING') == True:
-    config('TESTING')
-else:
-    config('TESTING') == False
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
