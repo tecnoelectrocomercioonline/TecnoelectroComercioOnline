@@ -26,7 +26,7 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 DEBUG = config('DEBUG')
 
 # Application definition
-INSTALLED_APPS = [ 
+INSTALLED_APPS = [
     'captcha',
     'crispy_forms',
     'jazzmin',
@@ -274,20 +274,43 @@ STATICFILES_FINDERS = (
     # 'django.contrib.staticfiles.finders.AppDirectoriesFinder', #causes verbose duplicate notifications in django 1.9
 )
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+USE_SPACES = os.getenv('USE_SPACES') 
+
+if USE_SPACES == 'TRUE':
+    # settings
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_ENDPOINT_URL = 'https://tecnoelectrocomercioonline.nyc3.digitaloceanspaces.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    # static settings
+    AWS_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    # public media settings
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'ecom.storage_backends.PublicMediaStorage'
+    # private media settings
+    PRIVATE_MEDIA_LOCATION = 'private'
+    PRIVATE_FILE_STORAGE = 'ecom.storage_backends.PrivateMediaStorage'
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_URL = '/static/'
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # That is all, but if you want more performance you should enable caching and compression support like this :
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # If you want to apply compression but don’t want the caching behaviour then you can use:
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    # STATICFILES_DIRS = (BASE_DIR / 'static',)
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Testing for TEST Env (Not configured)
 TESTING = config('TESTING')

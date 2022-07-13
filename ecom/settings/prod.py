@@ -84,11 +84,3 @@ DATABASES = {
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'myapp.storages.MediaStorage'
-
-# CDN CloudFront
-# STATIC_HOST = "https://d4663kmspf1sqa.cloudfront.net" if not DEBUG else ""
-# STATIC_URL = STATIC_HOST + "/static/"
-# STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
-# STATIC_URL = STATIC_HOST + "/static/"
-
-# heroku config:set DJANGO_STATIC_HOST=https://d4663kmspf1sqa.cloudfront.net
