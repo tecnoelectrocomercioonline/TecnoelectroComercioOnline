@@ -1,23 +1,19 @@
-version: "3.6"
+version: "3.8"
 
 services:
-  db:
-    image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_NAME=$POSTGRES_NAME
-      - POSTGRES_USER=$POSTGRES_USER
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
   web:
-    build: .
-    command: pip3 install -r requirements.txt && python3 manage.py runserver 0.0.0.0:8000
+    build: ./app
+    # build: .
+    # command: pip3 install -r requirements.txt && python3 manage.py runserver 0.0.0.0:8000
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; gunicorn ecom.wsgi:application --bind 0.0.0.0:8000'
     volumes:
-      - .:/tecnoelectrocomercioonline
-    ports:
-      - 8000:8000
-    image: tecnoelectrocomercioonline:latest
-    container_name: tecnoelectro_django
+      - ./app/:/usr/src/app/
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/mediafiles
+    # image: tecnoelectrocomercioonline:latest
+    # container_name: tecnoelectro_django
+    expose:
+      - 8000
     environment:
       - SECRET_KEY=$SECRET_KEY
       - EMAIL_HOST_USER=$EMAIL_HOST_USER
@@ -29,3 +25,28 @@ services:
       - REDISCLOUD_URL=$REDISCLOUD_URL
     depends_on:
       - db
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      # - ./data/db:/var/lib/postgresql/data
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_NAME=$POSTGRES_NAME
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/mediafiles
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
