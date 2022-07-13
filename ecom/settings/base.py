@@ -99,7 +99,7 @@ JAZZMIN_SETTINGS = {
     "search_model": "auth.User",
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
-    "user_avatar": "avatar",
+    "user_avatar": "shop/img/tecnologo.png",
 
     ############
     # Top Menu #
@@ -132,7 +132,7 @@ JAZZMIN_SETTINGS = {
     "usermenu_links": [
         {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues",
             "new_window": True},
-        {"model": "auth.user"}
+        {"model": "auth.User"}
     ],
 
     #############
@@ -159,7 +159,7 @@ JAZZMIN_SETTINGS = {
     # for the full list of 5.13.0 free icon classes
     "icons": {
         "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
+        "auth.User": "fas fa-user",
         "auth.Group": "fas fa-users",
     },
     # Icons that are used when one is not manually specified
@@ -192,7 +192,7 @@ JAZZMIN_SETTINGS = {
     # - carousel
     "changeform_format": "vertical_tabs",
     # override change forms on a per modeladmin basis
-    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    "changeform_format_overrides": {"auth.User": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
     "language_chooser": True,
 }
