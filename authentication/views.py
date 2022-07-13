@@ -34,7 +34,7 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, "Activation link is invalid!")
 
-    return redirect('homepage')
+    return redirect('index')
 
 def activateEmail(request, user, to_email):
     mail_subject = "Activate your user account."
@@ -62,7 +62,7 @@ def register(request):
             user.is_active=False
             user.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
-            return redirect('homepage')
+            return redirect('index')
 
         else:
             for error in list(form.errors.values()):
@@ -81,7 +81,7 @@ def register(request):
 def custom_logout(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
-    return redirect("homepage")
+    return redirect("index")
 
 @user_not_authenticated
 def custom_login(request):
@@ -94,16 +94,16 @@ def custom_login(request):
             )
             if user is not None:
                 login(request, user)
-                messages.success(request, f"Hello <b>{user.username}</b>! You have been logged in")
-                return redirect("homepage")
+                messages.success(request, f"Hola <b>{user.username}</b>! has iniciado sesión")
+                return redirect("index")
 
-        else:
-            for key, error in list(form.errors.items()):
-                if key == 'captcha' and error[0] == 'This field is required.':
-                    messages.error(request, "You must pass the reCAPTCHA test")
-                    continue
+        # else:
+        #     for key, error in list(form.errors.items()):
+        #         if key == 'captcha' and error[0] == 'This field is required.':
+        #             messages.error(request, "You must pass the reCAPTCHA test")
+        #             continue
                 
-                messages.error(request, error) 
+                # messages.error(request, error) 
 
     form = UserLoginForm()
 
@@ -135,7 +135,7 @@ def profile(request, username):
             context={"form": form}
             )
     
-    return redirect("homepage")
+    return redirect("index")
 
 @login_required
 def password_change(request):
@@ -184,12 +184,12 @@ def password_reset_request(request):
                 else:
                     messages.error(request, "Problem sending reset password email, <b>SERVER PROBLEM</b>")
 
-            return redirect('homepage')
+            return redirect('index')
 
-        for key, error in list(form.errors.items()):
-            if key == 'captcha' and error[0] == 'This field is required.':
-                messages.error(request, "You must pass the reCAPTCHA test")
-                continue
+        # for key, error in list(form.errors.items()):
+        #     if key == 'captcha' and error[0] == 'This field is required.':
+        #         messages.error(request, "You must pass the reCAPTCHA test")
+        #         continue
 
     form = PasswordResetForm()
     return render(
@@ -211,8 +211,8 @@ def passwordResetConfirm(request, uidb64, token):
             form = SetPasswordForm(user, request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Your password has been set. You may go ahead and <b>log in </b> now.")
-                return redirect('homepage')
+                messages.success(request, "Se ha establecido su contraseña. Puede continuar e <b>iniciar sesión</b> ahora")
+                return redirect('index')
             else:
                 for error in list(form.errors.values()):
                     messages.error(request, error)
@@ -220,7 +220,7 @@ def passwordResetConfirm(request, uidb64, token):
         form = SetPasswordForm(user)
         return render(request, 'password_reset_confirm.html', {'form': form})
     else:
-        messages.error(request, "Link is expired")
+        messages.error(request, "Enlace ha expirado")
 
-    messages.error(request, 'Something went wrong, redirecting back to Homepage')
-    return redirect("homepage")
+    messages.error(request, 'Algo salió mal, redirigir de nuevo al inicio')
+    return redirect("index")
