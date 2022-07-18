@@ -1,6 +1,21 @@
 from django.db import models
-from authentication.models import Customer
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
+# from authentication.models import Customer
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='customer', null=True, blank=True)
+    name = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+    # first_name = models.CharField(max_length=50, null=True)
+    # last_name = models.CharField(max_length=25, null=True)
+    # phone = models.CharField(max_length=25, null=True)
+    # address = models.TextField("Direccion", max_length=600, default='', blank=True)
+
 
 class Categories(models.TextChoices):
     SMARTPHONES = "smartphone-1"
@@ -18,20 +33,19 @@ class Categories(models.TextChoices):
 
 
 class Productos(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    # user = models.ForeignKey(
+    #     Customer, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=75)
     capacity = models.TextField(max_length=100)
     description = models.TextField(max_length=100)
     digital = models.BooleanField(default=False, null=True, blank=True)
     price = models.FloatField()
     category = models.CharField(max_length=20, choices=Categories.choices)
-    productphoto = models.ImageField(null=True, blank=True, upload_to="shop/catalogo")
+    productphoto = models.ImageField(
+        null=True, blank=True, upload_to="shop/catalogo")
     # discount_price = models.FloatField()
 
     def __str__(self):
-        # return self.pk, self.title, self.description, self.price, self.category, self.productphoto
-        # return "%s %s %s" % (self.title, self.description, self.price, self.category, self.productphoto)
-        # Solution for AttributeError: 'tuple' object has no attribute 'format'
         return "{} : {} []".format(self.title, self.capacity, self.description, self.price, self.category, self.productphoto)
 
     @property

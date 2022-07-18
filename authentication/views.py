@@ -13,6 +13,7 @@ from django.db.models.query_utils import Q
 from .forms import UserRegistrationForm, UserLoginForm, UserUpdateForm, SetPasswordForm, PasswordResetForm
 from .decorators import user_not_authenticated
 from .tokens import account_activation_token
+from .models import Customer
 
 def index(request):
 	return render(request, 'shop/body.html', {'title': 'index'})
@@ -61,6 +62,12 @@ def register(request):
             user = form.save(commit=False)
             user.is_active=False
             user.save()
+            Customer.objects.create(
+                user=user,
+                # username=user.username,
+                email=user.email
+            )
+            Customer.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
             return redirect('index')
 
@@ -114,6 +121,7 @@ def custom_login(request):
         )
 
 def profile(request, username):
+    Customer.objects.get_or_create(user=request.user)
     if request.method == "POST":
         user = request.user
         form = UserUpdateForm(request.POST, request.FILES, instance=user)

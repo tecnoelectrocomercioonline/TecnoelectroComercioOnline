@@ -10,16 +10,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 
-# Users
-AUTH_PROFILE_MODULE = 'shop.UserProfile'
-
-AUTH_USER_MODEL = 'authentication.CustomUser'
-
 ROOT_URLCONF = 'ecom.urls'
 
 WSGI_APPLICATION = 'ecom.wsgi.application'
 
 DEBUG = config('DEBUG')
+
+# Users
+USERNAME_FIELD = "email"
+# AUTH_PROFILE_MODULE = 'shop.UserProfile'
+# AUTH_USER_MODEL = 'authentication.CustomUser'
 
 # Application definition
 INSTALLED_APPS = [

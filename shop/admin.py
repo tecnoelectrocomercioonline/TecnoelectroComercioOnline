@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Productos
+from .models import Productos, Customer, Order, OrderItem, ShippingAddress
 
 # Register your models here.
 admin.site.register(Productos)
-# admin.site.register(Customer)
-# admin.site.register(Order)
-# admin.site.register(OrderItem)
-# admin.site.register(ShippingAddress)
+admin.site.register(Customer)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(ShippingAddress)

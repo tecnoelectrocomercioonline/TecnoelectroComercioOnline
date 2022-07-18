@@ -37,7 +37,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'email', 'image', 'description']
+        fields = ['first_name', 'last_name', 'email']
 
 class SetPasswordForm(SetPasswordForm):
     class Meta:
