@@ -6,3 +6,4 @@ class HomeForm(models.Model):
     email = forms.CharField(max_length=50, null=False)
     subject = forms.TextField(max_length=30)
     message = forms.TextField(max_length=100)
+

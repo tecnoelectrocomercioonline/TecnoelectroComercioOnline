@@ -8,6 +8,8 @@ from .utils import cookieCart, cartData, guestOrder
 
 
 def index(request):
+    # products = Product.objects.all()
+	# context = {'products':products}
 	return render(request, 'shop/body.html', {'title': 'index'})
 
 def HomeForm(request):
@@ -20,6 +22,28 @@ def HomeForm(request):
     else:
         form = HomeForm()
     return render(request, 'shop/body.html', {'form': form})
+
+def product(request, pk):
+	product = Productos.objects.get(id=pk)
+
+	if request.method == 'POST':
+		product = Productos.objects.get(id=pk)
+		#Get user account information
+		try:
+			customer = request.user.customer	
+		except:
+			device = request.COOKIES['device']
+			customer, created = Customer.objects.get_or_create(device=device)
+
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+		orderItem.quantity=request.POST['quantity']
+		orderItem.save()
+
+		return redirect('cart')
+
+	context = {'product':product}
+	return render(request, 'shop/product.html', context)
 
 def catalogo(request):
     data = cartData(request)
