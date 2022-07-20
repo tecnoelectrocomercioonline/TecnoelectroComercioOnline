@@ -2,13 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 # from authentication.models import Customer
 
-
 class Customer(models.Model):
     user = models.OneToOneField(
         User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True, blank=True)
     email = models.CharField(max_length=200, null=True, blank=True)
     device = models.CharField(max_length=200, null=True, blank=True)
+    # first_name = models.CharField(max_length=50, null=True)
+    # last_name = models.CharField(max_length=25, null=True)
+    # phone = models.CharField(max_length=25, null=True)
+    # address = models.TextField("Direccion", max_length=600, default='', blank=True)
 
     def __str__(self):
         if self.name:
@@ -16,11 +19,6 @@ class Customer(models.Model):
         else:
             name = self.device
         return str(name)
-    # first_name = models.CharField(max_length=50, null=True)
-    # last_name = models.CharField(max_length=25, null=True)
-    # phone = models.CharField(max_length=25, null=True)
-    # address = models.TextField("Direccion", max_length=600, default='', blank=True)
-
 
 class Categories(models.TextChoices):
     SMARTPHONES = "smartphone-1"
@@ -36,7 +34,6 @@ class Categories(models.TextChoices):
     BICICLETAS = "bicicletas-1"
     MAQUILLAJE = "maquillaje-1"
 
-
 class Productos(models.Model):
     # user = models.ForeignKey(
     #     Customer, on_delete=models.CASCADE, null=True, blank=True)
@@ -45,6 +42,7 @@ class Productos(models.Model):
     description = models.TextField(max_length=100)
     digital = models.BooleanField(default=False, null=True, blank=True)
     price = models.FloatField()
+	# price = models.DecimalField(max_digits=7, decimal_places=2)
     category = models.CharField(max_length=20, choices=Categories.choices)
     productphoto = models.ImageField(
         null=True, blank=True, upload_to="shop/catalogo")

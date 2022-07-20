@@ -1,21 +1,77 @@
 {% extends 'shop/base.html' %}
 {% load static %}
 {% block title %}Catalogo{% endblock %}
-
 {% block content %}
-  <link rel="stylesheet" href="{% static 'shop/css/catalog.css' %}">
+<link rel="stylesheet" href="{% static 'shop/css/catalog.css' %}">
 
-<body>
-  <!-- ======= Header ======= -->
- <!-- End Header -->
 <main id="main">
   <h1 style="text-align: center;" class="mb-4 py-2"><strong>Catalogo de Productos</strong></h1>
 
-  {% comment %} <input class="input" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por Marca o Modelo..."
-    title="Type in a name"> {% endcomment %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <ul>
+
+  <!-- Filtrador Por categorias --->
+
+    <!-- {% comment %} <input class="input" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por Marca o Modelo..."
+    title="Type in a name"> {% endcomment %} -->
+<ul>
+  <label for="tecnologia">Elige una etiqueta para filtrar:</label>
+  <select name="tecnologia" id="tecnologia">
+    <optgroup label="Tecnologia">
+      <option value="SmartPhones">SmartPhones</option>
+      <option value="Buds">Buds</option>
+      <option value="Watch">Watch</option>
+      <option value="Tablets">Tablets</option>
+      <option value="Pantallas">Pantallas</option>
+      <option value="Laptops">Laptops</option>
+      <option value="Consolas">Consolas</option>
+    </optgroup>
+    <optgroup label="PC Gamer">
+      <option value="Monitores">Monitores</option>
+      <option value="Case">Case</option>
+      <option value="Cpu">Cpu</option>
+      <option value="Mother">Mother</option>
+      <option value="SSD">SSD</option>
+      <option value="RAM">RAM</option>
+      <option value="Cooling">Cooling</option>
+      <option value="Case">Case</option>
+      <option value="Fuente">Fuente</option>
+      <option value="Mousse">Mousse</option>
+      <option value="Silla">Silla</option>
+      <option value="Teclados">Teclados</option>
+      <option value="Lentes">Lentes</option>
+      <option value="Headsets">Headsets</option>
+      <option value="Mandos">Mandos</option>
+    </optgroup>
+    <optgroup label="Electrodomesticos">
+      <option value="Lavadoras">Lavadoras</option>
+      <option value="Refrigeradoras">Refrigeradoras</option>
+      <option value="Cocinas">Cocinas</option>
+    </optgroup>
+    <optgroup label="Linea Blanca">
+      <option value="Lavadoras">Lavadoras</option>
+      <option value="Refrigeradoras">Refrigeradoras</option>
+      <option value="Cocinas">Cocinas</option>
+    </optgroup>
+    <optgroup label="Muebleria">
+      <option value="Lavadoras">Camas</option>
+    </optgroup>
+    <optgroup label="Herramientas">
+      <option value="Lavadoras">Taladro</option>
+
+    </optgroup>
+    <optgroup label="Maquillaje de Belleza">
+      <option value="Lavadoras">Esmaltes</option>
+
+    </optgroup>
+    <optgroup label="Mas">
+      <option value="Lavadoras">Bicicletas</option>
+      <option value="Refrigeradoras">Colchon</option>
+    </optgroup>
+  </select>
+  <br><br>
+</ul>
+  <!-- <ul>
     <li><a href="">Todas las categorias</a></li>
     <li><a href="">SmartPhones</a></li>
     <li><a href="">Buds</a></li>
@@ -44,34 +100,37 @@
     <li><a href="">Herramientas</a></li>
     <li><a href="">Bicicletas</a></li>
     <li><a href="">Maquillaje</a></li>
-  </ul>
-  <!-- BUSCADOR --->
+  </ul> -->
   <ul id="myUL" class="category">
-    {% for product in products %}
-    <div id="maincat">
-      <div id="boxcat">
-        <hr>
-        <li class="{{product.category}}">
-          <figure class="snip1171">
-            <img src="{{product.productphoto.url}}" alt="product" width="250px" height="250px" />
-            <div class="price"></div>
-            <figcaption>
-              <h3>{{product.title}}</h3>
-              <p>{{product.capacity}}</p>
-              <p>Descripción: {{product.description}}</p>
-            </figcaption>
-				<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Al carrito</button>
-            <a class="btn btn-outline-light" href="#">Ver</a>
-            <h4 style="float: inline-start"><strong>₡{{product.price}}</strong></h4>
-          </figure>
-        </li>
+    <!-- Products -->
+    <div class="col-sm-6 col-md-4 col-xl-3">
+      {% for product in products %}
+      <div id="maincat">
+        <div id="boxcat">
+          <hr>
 
+          <li class="{{product.category}}">
+            <figure class="snip1171">
+              <img src="{{product.productphoto.url}}" alt="product" width="250px" height="250px" />
+              <figcaption>
+                <h3 class="text-center" style="color:white">{{product.title}}</h3>
+                <h2 class="text-center" style="color:white">{{product.capacity}}</h2>
+                <h3 class="text-center" style="color:white">Descripción: {{product.description}}</h3>
+                <h2 class="text-center" style="float: inline-start; color:skyblue">{{product.price}}</h2>
+
+              </figcaption>
+              <!-- <button data-product="{{product.id}}" data-action="add"
+                class="btn btn-outline-secondary add-btn update-cart">Al carrito</button> -->
+                <a class="btn btn-outline-success" href="{% url 'product' product.id %}">Ver Producto</a>
+              </figure>
+          </li>
+        </div>
+        {{product.image.url}}
       </div>
-      {{product.image.url}}
+      {% endfor %}
     </div>
-{% endfor %}
   </ul>
-</main>
-</body>
-      <script src="{% static 'shop/js/cata-list-filter.js' %}"></script>
+  <hr style="color: skyblue;"/>
+
+<script defer src="{% static 'shop/js/cata-list-filter.js' %}"></script>
 {% endblock content %}

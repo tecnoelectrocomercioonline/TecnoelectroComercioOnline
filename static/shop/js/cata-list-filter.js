@@ -1,5 +1,5 @@
 $(function () {
-    $('ul li a').click(function (e) {
+    $('ul li a option').click(function (e) {
         e.preventDefault();
         var category = $(this).text().toLowerCase().split("&");
         if (category[0] == "view all") {

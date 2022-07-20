@@ -1,6 +1,12 @@
 {% extends 'shop/base.html' %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'shop/css/catalog.css' %}">
+
+<main id="main">
+	<h1 style="text-align: center;" class="mb-6 py-2"><strong>Carrito</strong></h1>
+	<hr style="color: skyblue;"/>
+
      <div class="row">
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
@@ -189,6 +195,8 @@
 				})
 	    }
 	</script>
+		<hr style="color: skyblue;"/>
+
 {% endblock content %}
 
 

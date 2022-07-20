@@ -4,11 +4,11 @@ from . import views
 urlpatterns = [
     path('', include('authentication.urls')),
     path('catalogo/', views.catalogo, name="catalogo"),
-   	path('cart/', views.cart, name="cart"),
-	path('product/<str:pk>/', views.product, name="product"),
-   	path('checkout/', views.checkout, name="checkout"),
-   	path('update_item/', views.updateItem, name="update_item"),
-   	path('process_order/', views.processOrder, name="process_order"),
+    path('cart/', views.cart, name="cart"),
+    path('product/<str:pk>/', views.product, name="product"),
+    path('update_item/', views.updateItem, name="updateItem"),
+    path('checkout/', views.checkout, name="checkout"),
+    path('process_order/', views.processOrder, name="processOrder"),
     # path('user/', views.userPage, name="user-page"),
     # path('account/', views.accountSettings, name="account"),
 

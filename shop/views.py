@@ -4,12 +4,9 @@ import json
 import datetime
 from django.contrib import messages
 from .models import *
-from .utils import cookieCart, cartData, guestOrder
-
+from .utils import cartData, guestOrder
 
 def index(request):
-    # products = Product.objects.all()
-	# context = {'products':products}
 	return render(request, 'shop/body.html', {'title': 'index'})
 
 def HomeForm(request):
@@ -22,6 +19,15 @@ def HomeForm(request):
     else:
         form = HomeForm()
     return render(request, 'shop/body.html', {'form': form})
+
+def catalogo(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    # order = data['order']
+    # items = data['items']
+    products = Productos.objects.all()
+    context = {'products': products, 'cartItems': cartItems}
+    return render(request, 'shop/catalogo.html', context)
 
 def product(request, pk):
 	product = Productos.objects.get(id=pk)
@@ -45,28 +51,18 @@ def product(request, pk):
 	context = {'product':product}
 	return render(request, 'shop/product.html', context)
 
-def catalogo(request):
-    data = cartData(request)
-
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
-
-    products = Productos.objects.all()
-    context = {'products': products, 'cartItems': cartItems}
-    return render(request, 'shop/catalogo.html', context)
-
-
 def cart(request):
-    data = cartData(request)
+	try:
+		customer = request.user.customer
+		# customer = request.user.is_authenticated
+	except:
+		device = request.COOKIES['device']
+		customer, created = Customer.objects.get_or_create(device=device)
 
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
+	order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
-    context = {'items': items, 'order': order, 'cartItems': cartItems}
-    return render(request, 'shop/cart.html', context)
-
+	context = {'order':order}
+	return render(request, 'shop/cart.html', context)
 
 def checkout(request):
     data = cartData(request)
@@ -77,7 +73,6 @@ def checkout(request):
 
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'shop/checkout.html', context)
-
 
 def updateItem(request):
     data = json.loads(request.body)
@@ -105,7 +100,6 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse('Item was added', safe=False)
-
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()

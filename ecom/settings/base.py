@@ -32,11 +32,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd party
     'django_extensions',
     'django_filters',
     'storages',
+    # Apps
     'authentication',
-    'shop',
+    'shop.apps.ShopConfig',
     'rest_framework'
 ]
 
