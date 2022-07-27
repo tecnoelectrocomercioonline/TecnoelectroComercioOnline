@@ -256,7 +256,8 @@ USE_L10N = True
 USE_TZ = True
 
 # SMTP
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.mandrillapp.com'

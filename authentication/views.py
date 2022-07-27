@@ -15,8 +15,10 @@ from .decorators import user_not_authenticated
 from .tokens import account_activation_token
 from shop.models import Customer
 
+
 def index(request):
-	return render(request, 'shop/body.html', {'title': 'index'})
+    return render(request, 'shop/body.html', {'title': 'index'})
+
 
 def activate(request, uidb64, token):
     User = get_user_model()
@@ -30,15 +32,17 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
 
-        messages.success(request, "Gracias por su confirmación por correo electrónico. Ahora puede iniciar sesión en su cuenta.")
+        messages.success(
+            request, "Gracias por su confirmación por correo electrónico. Ahora puede iniciar sesión en su cuenta.")
         return redirect('login')
     else:
         messages.error(request, "El enlace de activación no es válido!")
 
     return redirect('index')
 
+
 def activateEmail(request, user, to_email):
-    mail_subject = "Activate your user account."
+    mail_subject = "Activar cuenta Tecnoelectro Comercio Online"
     message = render_to_string("authentication/activate.html", {
         'user': user.username,
         'domain': get_current_site(request).domain,
@@ -48,10 +52,32 @@ def activateEmail(request, user, to_email):
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        messages.success(request, f'Estimado <b>{user}</b>, vaya a la bandeja de entrada de su correo electrónico <b>{to_email}</b> y haga clic en \
-                recibido el enlace de activación para confirmar y completar el registro. <b>Nota:</b> Revisa tu carpeta de spam.')
+        messages.success(request, f'Estimado {user}, vaya a la bandeja de entrada de su correo electrónico: {to_email}y haga clic en \
+                recibido el enlace de activación para confirmar y completar el registro. Nota: Revisa tu carpeta de spam.')
     else:
-        messages.error(request, f'Problema al enviar correo electrónico a {to_email}, verifica si lo escribiste correctamente.')
+        messages.error(
+            request, f'Problema al enviar correo electrónico a {to_email}, verifica si lo escribiste correctamente.')
+
+# send user a forgot password containing a nonce
+# subject = 'Reset Password'
+# user = some_user_object
+# nonce = some_nonce_value
+
+# template_content = []
+# message = {
+#     'from_email': 'info@sample.com',
+#     'from_name': 'Robot',
+#     'subject': subject,
+#     'to': [{'email': user.email, 'name': user.get_full_name()},],
+#     'global_merge_vars': [
+#         {'name':'SUBJECT', 'content': subject},
+#         {'name':'USER_NAME', 'content': user.first_name},
+#         {'name':'NONCE', 'content': nonce},
+#         # etc etc
+#     ],
+# }
+# mail = MandrillTemplateMail("Password Reset", template_content, message)
+# mail.send()
 
 
 @user_not_authenticated
@@ -60,7 +86,7 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active=False
+            user.is_active = False
             user.save()
             # Customer.objects.create(
             #     user=user,
@@ -82,13 +108,15 @@ def register(request):
         request=request,
         template_name="authentication/register.html",
         context={"form": form}
-        )
+    )
+
 
 @login_required
 def custom_logout(request):
     logout(request)
     messages.info(request, "Cerrar sesión con éxito!")
     return redirect("index")
+
 
 @user_not_authenticated
 def custom_login(request):
@@ -101,7 +129,8 @@ def custom_login(request):
             )
             if user is not None:
                 login(request, user)
-                messages.success(request, f"Hola <b>{user}</b>! has iniciado sesión")
+                messages.success(
+                    request, f"Hola <b>{user}</b>! has iniciado sesión")
                 return redirect("index")
 
         # else:
@@ -109,8 +138,8 @@ def custom_login(request):
         #         if key == 'captcha' and error[0] == 'This field is required.':
         #             messages.error(request, "You must pass the reCAPTCHA test")
         #             continue
-                
-                # messages.error(request, error) 
+
+                # messages.error(request, error)
 
     form = UserLoginForm()
 
@@ -118,7 +147,8 @@ def custom_login(request):
         request=request,
         template_name="authentication/login.html",
         context={"form": form}
-        )
+    )
+
 
 def profile(request, username):
     Customer.objects.get_or_create(user=request.user)
@@ -127,7 +157,8 @@ def profile(request, username):
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             user_form = form.save()
-            messages.success(request, f'{user_form.username}, Tu perfil ha sido actualizado!')
+            messages.success(
+                request, f'{user_form.username}, Tu perfil ha sido actualizado!')
             return redirect("profile", user_form.username)
 
         for error in list(form.errors.values()):
@@ -141,9 +172,10 @@ def profile(request, username):
             request=request,
             template_name="authentication/profile.html",
             context={"form": form}
-            )
-    
+        )
+
     return redirect("index")
+
 
 @login_required
 def password_change(request):
@@ -161,6 +193,7 @@ def password_change(request):
     form = SetPasswordForm(user)
     return render(request, 'password_reset_confirm.html', {'form': form})
 
+
 @user_not_authenticated
 def password_reset_request(request):
     if request.method == 'POST':
@@ -177,10 +210,11 @@ def password_reset_request(request):
                     'token': account_activation_token.make_token(associated_user),
                     "protocol": 'https' if request.is_secure() else 'http'
                 })
-                email = EmailMessage(subject, message, to=[associated_user.email])
+                email = EmailMessage(subject, message, to=[
+                                     associated_user.email])
                 if email.send():
                     messages.success(request,
-                        """
+                                     """
                         <h2>Password reset sent</h2><hr>
                         <p>
                             Le hemos enviado instrucciones por correo electrónico para establecer su contraseña, si existe una cuenta con el correo electrónico que ingresó.
@@ -188,9 +222,10 @@ def password_reset_request(request):
                             con el que te registraste y revisa tu carpeta de correo no deseado.
                         </p>
                         """
-                    )
+                                     )
                 else:
-                    messages.error(request, "Problema al enviar el correo electrónico de restablecimiento de contraseña, <b>PROBLEMA DEL SERVIDOR</b>")
+                    messages.error(
+                        request, "Problema al enviar el correo electrónico de restablecimiento de contraseña, <b>PROBLEMA DEL SERVIDOR</b>")
 
             return redirect('index')
 
@@ -201,10 +236,11 @@ def password_reset_request(request):
 
     form = PasswordResetForm()
     return render(
-        request=request, 
-        template_name="authentication/password_reset.html", 
+        request=request,
+        template_name="authentication/password_reset.html",
         context={"form": form}
-        )
+    )
+
 
 def passwordResetConfirm(request, uidb64, token):
     User = get_user_model()
@@ -219,7 +255,8 @@ def passwordResetConfirm(request, uidb64, token):
             form = SetPasswordForm(user, request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Se ha establecido su contraseña. Puede continuar e <b>iniciar sesión</b> ahora")
+                messages.success(
+                    request, "Se ha establecido su contraseña. Puede continuar e <b>iniciar sesión</b> ahora")
                 return redirect('index')
             else:
                 for error in list(form.errors.values()):
