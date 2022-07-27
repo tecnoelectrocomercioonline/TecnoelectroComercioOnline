@@ -8,21 +8,21 @@
 <div class="row">
 	<div class="col-lg-6">
 		
-		<img style="margin-left: 5px; border:1px solid rgb(116, 8, 224)" src="{{product.imageURL}}">
+		<img style="margin-left: 15px; border:1px solid rgb(116, 8, 224)" src="{{product.imageURL}}" width="80%">
 	</div>
 
 	<div style="padding:50px" class="col-lg-6">
 
-		<h3>{{product.title}}</h3>
-		<hr>
+		<h2>{{product.title}}</h2>
+		<hr style="color: skyblue">
 		
 		<form method="POST" action="{% url 'product' product.id %}">
 			{% csrf_token %}
 			<input min="1" value=1 type="number" name="quantity">
-			<input class="btn btn-dark" type="submit" value="Al carrito">
+			<input class="btn btn-primary" type="submit" value="Al carrito">
 		</form>
 
-		<h2>Precio: ${{product.price}}</h2>
+		<h2>Precio: ₡{{product.price}}</h2>
 	</div>
 </div>
 

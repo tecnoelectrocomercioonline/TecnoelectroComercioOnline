@@ -1,3 +1,4 @@
+from unicodedata import decimal
 from django.db import models
 from django.contrib.auth.models import User
 # from authentication.models import Customer
@@ -8,10 +9,10 @@ class Customer(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     email = models.CharField(max_length=200, null=True, blank=True)
     device = models.CharField(max_length=200, null=True, blank=True)
-    # first_name = models.CharField(max_length=50, null=True)
-    # last_name = models.CharField(max_length=25, null=True)
-    # phone = models.CharField(max_length=25, null=True)
-    # address = models.TextField("Direccion", max_length=600, default='', blank=True)
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=25, null=True)
+    phone = models.CharField(max_length=25, null=True)
+    address = models.TextField("Direccion", max_length=600, default='', blank=True)
 
     def __str__(self):
         if self.name:
@@ -21,18 +22,38 @@ class Customer(models.Model):
         return str(name)
 
 class Categories(models.TextChoices):
-    SMARTPHONES = "smartphone-1"
-    BUDS = "buds-1"
-    WATCH = "watch-1"
-    TABLETS = "tablets-1"
-    LAPTOPS = "laptops-1"
-    MOTINOTRES = "monitores-1"
-    ELECTRODOMESTICOS = "electrodomesticos-1"
-    MUEBLERIA = "muebleria-1"
-    LINEA_BLANCA = "lineablanca-1"
-    HERRAMIENTAS = "herramientas-1"
-    BICICLETAS = "bicicletas-1"
-    MAQUILLAJE = "maquillaje-1"
+    SMARTPHONES = "smartphones"
+    BUDS = "buds"
+    WATCH = "watch"
+    TABLETS = "tablets"
+    LAPTOPS = "laptops"
+    PANTALLAS = "pantallas"
+    CONSOLAS = "consolas"
+    MOTINOTRES = "monitores"
+    CASE = "case"
+    PROCESADOR = "procesador"
+    MOTHERBOARD = "motherboard"
+    SSD = "ssd"
+    HDD = "hdd"
+    RAM = "ram"
+    COOLING = "cooling"
+    FUENTE = "fuente"
+    Mousse = "mousse"
+    SILLAS = "sillas"
+    TECLADO = "teclados"
+    LENTES = "lentes"   
+    HEADSET = "headsets"
+    MANDOS = "mandos"   
+    ELECTRODOMESTICOS = "lavadoras"
+    MUEBLERIA = "refrigeradoras"
+    COCINAS = "cocinas"
+    CAMAS = "camas"
+    TALADROS = "taladros"
+    ESMALTES = "esmaltes"
+    MAQUILLAJE = "maquillaje"
+    BICICLETAS = "bicicletas"
+    COLCHON = "colchon"
+
 
 class Productos(models.Model):
     # user = models.ForeignKey(
@@ -40,9 +61,10 @@ class Productos(models.Model):
     title = models.CharField(max_length=75)
     capacity = models.TextField(max_length=100)
     description = models.TextField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=True)
-    price = models.FloatField()
-	# price = models.DecimalField(max_digits=7, decimal_places=2)
+    # price = MoneyField(max_digits=14, decimal_places=2, default_currency='CRC')
+    # price = models.FloatField()
     category = models.CharField(max_length=20, choices=Categories.choices)
     productphoto = models.ImageField(
         null=True, blank=True, upload_to="shop/catalogo")

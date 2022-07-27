@@ -1,7 +1,7 @@
-from django.db import models
-from django.contrib.auth.models import User, AbstractUser
-from shop.models import Customer
-import os
+# from django.db import models
+# from django.contrib.auth.models import User, AbstractUser
+# from shop.models import Customer
+# import os
 
 # class Customer(models.Model):
 #     # user = models.OneToOneField(default='user' , on_delete=models.CASCADE)

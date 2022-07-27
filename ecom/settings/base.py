@@ -4,6 +4,7 @@ from .settings import *
 import os
 # from redis import Redis
 # import urllib.parse as urlparse
+import moneyed
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -24,6 +25,7 @@ USERNAME_FIELD = "email"
 # Application definition
 INSTALLED_APPS = [
     # 'captcha',
+    'djmoney',
     'crispy_forms',
     'jazzmin',
     'django.contrib.admin',
@@ -257,7 +259,7 @@ USE_TZ = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.mandrillapp.com'
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
@@ -268,7 +270,7 @@ STATICFILES_FINDERS = (
     # 'django.contrib.staticfiles.finders.AppDirectoriesFinder', #causes verbose duplicate notifications in django 1.9
 )
 
-USE_SPACES = os.getenv('USE_SPACES') 
+USE_SPACES = os.getenv('USE_SPACES')
 
 if USE_SPACES == 'TRUE':
     # settings
@@ -314,3 +316,13 @@ else:
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CRC = moneyed.add_currency(
+#     code='CRC',
+#     numeric='068',
+#     name='Colon',
+#     countries=('COSTA RICA', )
+# )
+
+# CURRENCIES = ('CRC', 'USD', 'EUR')
+# CURRENCY_CHOICES = [('CRC', 'CRC ₡'), ('USD', 'USD $'), ('EUR', 'EUR €')]

@@ -1,0 +1,146 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Catalogo{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'shop/css/catalog.css' %}">
+
+<main id="main">
+  <h1 style="text-align: center;" class="mb-4 py-2"><strong>Catalogo de Productos</strong></h1>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Filtrador Por categorias --->
+
+  <!-- {% comment %} <input class="input" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por Marca o Modelo..."
+    title="Type in a name"> {% endcomment %} -->
+  <ul>
+    <label for="tecnologia">Elige una etiqueta para filtrar:</label>
+    <select name="tecnologia" id="tecnologia">
+      <option value="all" class="btn active" onclick="filterSelection('all')">Todas las categorias</option>
+      <optgroup label="Tecnologia">
+        <option value="SmartPhones" class="btn" onclick="filterSelection('SmartPhones')">SmartPhones</option>
+        <option value="Buds" class="btn" onclick="filterSelection('Buds')">Buds</option>
+        <option value="Watch" class="btn" onclick="filterSelection('Watch')">Watch</option>
+        <option value="Tablets" class="btn" onclick="filterSelection('Tablets')">Tablets</option>
+        <option value="Pantallas" class="btn" onclick="filterSelection('Pantallas')">Pantallas</option>
+        <option value="Laptops" class="btn" onclick="filterSelection('Laptops')">Laptops</option>
+        <option value="Consolas" class="btn" onclick="filterSelection('Consolas')">Consolas</option>
+      </optgroup>
+      <optgroup label="PC Gamer">
+        <option value="Monitores" class="btn" onclick="filterSelection('Monitores')">Monitores</option>
+        <option value="Case" class="btn" onclick="filterSelection('Case')">Case</option>
+        <option value="Cpu" class="btn" onclick="filterSelection('Cpu')">Cpu</option>
+        <option value="Mother" class="btn" onclick="filterSelection('Mother')">Mother</option>
+        <option value="SSD" class="btn" onclick="filterSelection('SSD')">SSD</option>
+        <option value="RAM" class="btn" onclick="filterSelection('RAM')">RAM</option>
+        <option value="Cooling" class="btn" onclick="filterSelection('Cooling')">Cooling</option>
+        <option value="Fuente" class="btn" onclick="filterSelection('Fuente')">Fuente</option>
+        <option value="Mousse" class="btn" onclick="filterSelection('Mousse')">Mousse</option>
+        <option value="Silla" class="btn" onclick="filterSelection('Silla')">Silla</option>
+        <option value="Teclados" class="btn" onclick="filterSelection('Teclados')">Teclados</option>
+        <option value="Lentes" class="btn" onclick="filterSelection('Lentes')">Lentes</option>
+        <option value="Headsets" class="btn" onclick="filterSelection('Headsets')">Headsets</option>
+        <option value="Mandos" class="btn" onclick="filterSelection('Mandos')">Mandos</option>
+      </optgroup>
+      <optgroup label="Electrodomesticos">
+        <!-- <option value="Lavadoras" class="btn" onclick="filterSelection('Lavadoras')">Olla Rocera</option>
+        <option value="Refrigeradoras" class="btn" onclick="filterSelection('Refrigeradoras')">Refrigeradoras</option>
+        <option value="Cocinas" class="btn" onclick="filterSelection('Cocinas')">Cocinas</option> -->
+      </optgroup>
+      <optgroup label="Linea Blanca">
+        <option value="Lavadoras" class="btn" onclick="filterSelection('Lavadoras')">Lavadoras</option>
+        <option value="Refrigeradoras" class="btn" onclick="filterSelection('Refrigeradoras')">Refrigeradoras</option>
+        <option value="Cocinas" class="btn" onclick="filterSelection('Cocinas')">Cocinas</option>
+      </optgroup>
+      <optgroup label="Muebleria">
+        <option value="Lavadoras" class="btn" onclick="filterSelection('Camas')">Camas</option>
+      </optgroup>
+      <optgroup label="Herramientas">
+        <option value="Lavadoras" class="btn" onclick="filterSelection('Taladro')">Taladro</option>
+
+      </optgroup>
+      <optgroup label="Maquillaje de Belleza">
+        <option value="Lavadoras" class="btn" onclick="filterSelection('Esmaltes')">Esmaltes</option>
+
+      </optgroup>
+      <optgroup label="Mas">
+        <option value="Lavadoras" class="btn" onclick="filterSelection('Bicicletas')">Bicicletas</option>
+        <option value="Refrigeradoras" class="btn" onclick="filterSelection('Colchon')">Colchon</option>
+      </optgroup>
+    </select>
+    <br><br>
+  </ul>
+
+  <ul class="category" id="myUL">
+    <!-- Products -->
+      {% for product in products %}
+      <div class="col-xs-12 col-sm-6 col-md-4 col-xl-3" id="maincat">
+        <div id="boxcat">
+
+          <li class="{{product.category}}">
+            <figure class="snip1171">
+              <img src="{{product.productphoto.url}}" alt="product" width="250px" height="250px" />
+              <figcaption>
+                <h3 class="text-center" style="color:white">{{product.title}}</h3>
+                <h2 class="text-center" style="color:white">{{product.capacity}}</h2>
+                <h3 class="text-center" style="color:white">Descripción: {{product.description}}</h3>
+                <h2 class="text-center" style="float: inline-start; color:skyblue">{{product.price}}</h2>
+              </figcaption>
+              <!-- <button data-product="{{product.id}}" data-action="add"
+                class="btn btn-outline-secondary add-btn update-cart">Al carrito</button> -->
+              <a class="btn btn-outline-primary" style="margin-left: 50px" href="{% url 'product' product.id %}">Ver Producto</a>
+            </figure>
+          </li>
+
+        </div>
+      </div>
+      {% endfor %}
+  </ul>
+
+  <script defer>
+    filterSelection("all")
+    function filterSelection(c) {
+      var x, i;
+      x = document.getElementsByClassName("column");
+      if (c == "all") c = "";
+      for (i = 0; i < x.length; i++) {
+        removeClass(x[i], "show");
+        if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
+      }
+    }
+
+    function addClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+      }
+    }
+
+    function removeClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }
+      }
+      element.className = arr1.join(" ");
+    }
+
+
+    // Add active class to the current button (highlight it)
+    var btnContainer = document.getElementById("myBtnContainer");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
+    }
+  </script>
+  {% endblock content %}

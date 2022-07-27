@@ -24,6 +24,7 @@ django-recaptcha
 django-storages
 django-tinymce
 dj-database-url
+django-money
 faker
 filelock
 fontawesomefree

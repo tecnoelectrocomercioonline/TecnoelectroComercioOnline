@@ -13,7 +13,7 @@ from django.db.models.query_utils import Q
 from .forms import UserRegistrationForm, UserLoginForm, UserUpdateForm, SetPasswordForm, PasswordResetForm
 from .decorators import user_not_authenticated
 from .tokens import account_activation_token
-from .models import Customer
+from shop.models import Customer
 
 def index(request):
 	return render(request, 'shop/body.html', {'title': 'index'})
@@ -30,16 +30,16 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
 
-        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
+        messages.success(request, "Gracias por su confirmación por correo electrónico. Ahora puede iniciar sesión en su cuenta.")
         return redirect('login')
     else:
-        messages.error(request, "Activation link is invalid!")
+        messages.error(request, "El enlace de activación no es válido!")
 
     return redirect('index')
 
 def activateEmail(request, user, to_email):
     mail_subject = "Activate your user account."
-    message = render_to_string("activate.html", {
+    message = render_to_string("authentication/activate.html", {
         'user': user.username,
         'domain': get_current_site(request).domain,
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -48,10 +48,10 @@ def activateEmail(request, user, to_email):
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
-                received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
+        messages.success(request, f'Estimado <b>{user}</b>, vaya a la bandeja de entrada de su correo electrónico <b>{to_email}</b> y haga clic en \
+                recibido el enlace de activación para confirmar y completar el registro. <b>Nota:</b> Revisa tu carpeta de spam.')
     else:
-        messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
+        messages.error(request, f'Problema al enviar correo electrónico a {to_email}, verifica si lo escribiste correctamente.')
 
 
 @user_not_authenticated
@@ -62,12 +62,12 @@ def register(request):
             user = form.save(commit=False)
             user.is_active=False
             user.save()
-            Customer.objects.create(
-                user=user,
-                # username=user.username,
-                email=user.email
-            )
-            Customer.save()
+            # Customer.objects.create(
+            #     user=user,
+            #     # username=user.username,
+            #     email=user.email
+            # )
+            # Customer.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
             return redirect('index')
 
@@ -87,7 +87,7 @@ def register(request):
 @login_required
 def custom_logout(request):
     logout(request)
-    messages.info(request, "Logged out successfully!")
+    messages.info(request, "Cerrar sesión con éxito!")
     return redirect("index")
 
 @user_not_authenticated
@@ -101,7 +101,7 @@ def custom_login(request):
             )
             if user is not None:
                 login(request, user)
-                messages.success(request, f"Hola <b>{user.username}</b>! has iniciado sesión")
+                messages.success(request, f"Hola <b>{user}</b>! has iniciado sesión")
                 return redirect("index")
 
         # else:
@@ -127,7 +127,7 @@ def profile(request, username):
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             user_form = form.save()
-            messages.success(request, f'{user_form.username}, Your profile has been updated!')
+            messages.success(request, f'{user_form.username}, Tu perfil ha sido actualizado!')
             return redirect("profile", user_form.username)
 
         for error in list(form.errors.values()):
@@ -152,7 +152,7 @@ def password_change(request):
         form = SetPasswordForm(user, request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Your password has been changed")
+            messages.success(request, "Tu contraseña ha sido cambiada")
             return redirect('login')
         else:
             for error in list(form.errors.values()):
@@ -183,14 +183,14 @@ def password_reset_request(request):
                         """
                         <h2>Password reset sent</h2><hr>
                         <p>
-                            We've emailed you instructions for setting your password, if an account exists with the email you entered. 
-                            You should receive them shortly.<br>If you don't receive an email, please make sure you've entered the address 
-                            you registered with, and check your spam folder.
+                            Le hemos enviado instrucciones por correo electrónico para establecer su contraseña, si existe una cuenta con el correo electrónico que ingresó.
+                            Debería recibirlos en breve.<br>Si no recibe un correo electrónico, asegúrese de haber ingresado la dirección
+                            con el que te registraste y revisa tu carpeta de correo no deseado.
                         </p>
                         """
                     )
                 else:
-                    messages.error(request, "Problem sending reset password email, <b>SERVER PROBLEM</b>")
+                    messages.error(request, "Problema al enviar el correo electrónico de restablecimiento de contraseña, <b>PROBLEMA DEL SERVIDOR</b>")
 
             return redirect('index')
 

@@ -1,0 +1,141 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Catalogo{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'shop/css/catalog.css' %}">
+
+<main id="main">
+  <h1 style="text-align: center;" class="mb-4 py-2"><strong>Catalogo de Productos</strong></h1>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Filtrador Por categorias --->
+
+    <!-- {% comment %} <input class="input" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por Marca o Modelo..."
+    title="Type in a name"> {% endcomment %} -->
+<ul>
+    <li><a href="">Todas las categorias</a></li>
+    <li><a href="">SmartPhones</a></li>
+    <li><a href="">Buds</a></li>
+    <li><a href="">Watch</a></li>
+    <li><a href="">Tablets</a></li>
+    <li><a href="">Pantallas</a></li>
+    <li><a href="">Laptops</a></li>
+    <li><a href="">Monitores</a></li>
+    <li><a href="">Case</a></li>
+    <li><a href="">Cpu</a></li>
+    <li><a href="">Mother</a></li>
+    <li><a href="">RAM</a></li>
+    <li><a href="">Cooling</a></li>
+    <li><a href="">Fuente</a></li>
+    <li><a href="">SSD</a></li>
+    <li><a href="">Silla</a></li>
+    <li><a href="">Teclados</a></li>
+    <li><a href="">Mousse</a></li>
+    <li><a href="">Lentes</a></li>
+    <li><a href="">Headsets</a></li>
+    <li><a href="">Mandos</a></li>
+    <li><a href="">Consolas</a></li>
+    <li><a href="">Electrodomesticos</a></li>
+    <li><a href="">Linea Blanca</a></li>
+    <li><a href="">Muebleria</a></li>
+    <li><a href="">Herramientas</a></li>
+    <li><a href="">Bicicletas</a></li>
+    <li><a href="">Maquillaje</a></li>
+  </ul>
+  <ul id="myUL" class="category">
+    <!-- Products -->
+    <div class="col-sm-6 col-md-4 col-xl-3">
+      {% for product in products %}
+      <div id="maincat">
+        <div id="boxcat">
+          <hr>
+
+          <li class="{{product.category}}">
+            <figure class="snip1171">
+              <img src="{{product.productphoto.url}}" alt="product" width="250px" height="250px" />
+              <figcaption>
+                <h3 class="text-center" style="color:white">{{product.title}}</h3>
+                <h2 class="text-center" style="color:white">{{product.capacity}}</h2>
+                <h3 class="text-center" style="color:white">Descripción: {{product.description}}</h3>
+                <h2 class="text-center" style="float: inline-start; color:skyblue">{{product.price}}</h2>
+
+              </figcaption>
+              <!-- <button data-product="{{product.id}}" data-action="add"
+                class="btn btn-outline-secondary add-btn update-cart">Al carrito</button> -->
+                <a class="btn btn-outline-success" href="{% url 'product' product.id %}">Ver Producto</a>
+              </figure>
+          </li>
+        </div>
+        {{product.image.url}}
+      </div>
+      {% endfor %}
+    </div>
+  </ul>
+  <hr style="color: skyblue;"/>
+
+<script>
+$(function () {
+    $('ul li a').click(function (e) {
+        e.preventDefault();
+        var category = $(this).text().toLowerCase().split("&");
+        if (category[0] == "view all") {
+            $('ul.category li').show();
+        }
+        else {
+            //hide all categories
+            $('ul.category li').hide();
+            $.each(category, function (i, v) {
+                $('ul.category li.' + v.trim() + "-1").show();
+            });
+        }
+    });
+
+});
+
+filterSelection("all")
+function filterSelection(c) {
+    var x, i;
+    x = document.getElementsByClassName("filterDiv");
+    if (c == "all") c = "";
+    for (i = 0; i < x.length; i++) {
+        w3RemoveClass(x[i], "show");
+        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+    }
+}
+
+function w3AddClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+    }
+}
+
+function w3RemoveClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }
+    }
+    element.className = arr1.join(" ");
+}
+
+// Add active class to the current button (highlight it)
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function () {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+    });
+}
+
+</script>
+{% endblock content %}
