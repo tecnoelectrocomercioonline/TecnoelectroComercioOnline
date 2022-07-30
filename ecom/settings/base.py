@@ -26,7 +26,6 @@ USERNAME_FIELD = "email"
 INSTALLED_APPS = [
     # 'captcha',
     # 'djmoney',
-    "djrill",
     'crispy_forms',
     'jazzmin',
     'django.contrib.admin',
