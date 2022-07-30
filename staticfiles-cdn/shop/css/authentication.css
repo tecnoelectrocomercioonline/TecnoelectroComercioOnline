@@ -1,0 +1,66 @@
+.user_card {
+    background: linear-gradient(rgba(142, 196, 221, 0.8), rgb(0, 192, 226));
+    background-color: rgb(210, 245, 251);
+    opacity: 0.7;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16.1px);
+    -webkit-backdrop-filter: blur(16.1px);
+    border: 1px solid rgba(0, 208, 253, 0.07);
+    width: 500px;
+    margin-top: 100px;
+    margin-bottom: auto;
+    position: relative;
+    padding: 15px;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form_container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#form-title {
+    color: rgb(75, 0, 136);
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.login_btn {
+    width: 100%;
+    background: #630d5c !important;
+    color: white !important;
+}
+
+.login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+
+.login_container {
+    padding: 0 2rem;
+}
+
+.input-group-text {
+    background: #630d5c !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+
+#messages {
+    background: linear-gradient(rgba(142, 196, 221, 0.8), rgb(0, 192, 226));
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+}

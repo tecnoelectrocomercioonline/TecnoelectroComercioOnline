@@ -4,7 +4,7 @@ from .settings import *
 import os
 # from redis import Redis
 # import urllib.parse as urlparse
-import moneyed
+# import moneyed
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -25,7 +25,8 @@ USERNAME_FIELD = "email"
 # Application definition
 INSTALLED_APPS = [
     # 'captcha',
-    'djmoney',
+    # 'djmoney',
+    "djrill",
     'crispy_forms',
     'jazzmin',
     'django.contrib.admin',
@@ -260,9 +261,12 @@ USE_TZ = True
 EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = "tecnoelectrocr@gmail.com"  # if you don't already have this in settings
+SERVER_EMAIL = 'tecnoelectrocr@gmail.com'
 EMAIL_HOST = 'smtp.mandrillapp.com'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+MANDRILL_API_KEY = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',  # uses STATICFILES_FIRS
@@ -272,6 +276,7 @@ STATICFILES_FINDERS = (
 )
 
 USE_SPACES = os.getenv('USE_SPACES')
+STATICFILES_DIRS = ['static']
 
 if USE_SPACES == 'TRUE':
     # settings

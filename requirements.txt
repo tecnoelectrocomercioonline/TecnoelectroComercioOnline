@@ -16,6 +16,7 @@ django-extensions
 django-filter
 django-heroku
 django-jazzmin
+django_mandrill
 django-redis
 django-redis-cache
 djangorestframework-simplejwt
@@ -30,11 +31,9 @@ filelock
 fontawesomefree
 gunicorn
 imagekitio
+mailchimp_transactional
 Pillow
 pytz
-redis
-requests
-sqlparse
 psycopg2
 # psycopg2>=2.7,<2.8 --no-binary psycopg2
 # psycopg2==2.7.7
@@ -44,6 +43,9 @@ psycopg2-binary
 # psycopg2-binary==2.9.0
 pysqlite3
 python-decouple
+redis
+requests
+sqlparse
 six
 sqlparse
 text-unidecode

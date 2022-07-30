@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% load static %}
+
+{% block body %}
+<h1>Hello world!</h1>
+<img src="{% static 'img/test.png' %}" alt="">
+<div id="react_container"></div>
+{% endblock %}
+
+{% block extra_javascript %}
+<script src="{% static 'shop/tabla.js' %}" type = "text/babel" ></script>
+{% endblock %}
+

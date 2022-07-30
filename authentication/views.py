@@ -7,14 +7,14 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail, EmailMessage
 from django.db.models.query_utils import Q
 
 from .forms import UserRegistrationForm, UserLoginForm, UserUpdateForm, SetPasswordForm, PasswordResetForm
 from .decorators import user_not_authenticated
 from .tokens import account_activation_token
 from shop.models import Customer
-
+import mandrill
 
 def index(request):
     return render(request, 'shop/body.html', {'title': 'index'})
@@ -40,7 +40,6 @@ def activate(request, uidb64, token):
 
     return redirect('index')
 
-
 def activateEmail(request, user, to_email):
     mail_subject = "Activar cuenta Tecnoelectro Comercio Online"
     message = render_to_string("authentication/activate.html", {
@@ -50,6 +49,8 @@ def activateEmail(request, user, to_email):
         'token': account_activation_token.make_token(user),
         "protocol": 'https' if request.is_secure() else 'http'
     })
+    # send_mail(request, f'Estimado {user}, vaya a la bandeja de entrada de su correo electrónico: {to_email}y haga clic en \
+    #             recibido el enlace de activación para confirmar y completar el registro. Nota: Revisa tu carpeta de spam.')
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
         messages.success(request, f'Estimado {user}, vaya a la bandeja de entrada de su correo electrónico: {to_email}y haga clic en \
@@ -57,28 +58,6 @@ def activateEmail(request, user, to_email):
     else:
         messages.error(
             request, f'Problema al enviar correo electrónico a {to_email}, verifica si lo escribiste correctamente.')
-
-# send user a forgot password containing a nonce
-# subject = 'Reset Password'
-# user = some_user_object
-# nonce = some_nonce_value
-
-# template_content = []
-# message = {
-#     'from_email': 'info@sample.com',
-#     'from_name': 'Robot',
-#     'subject': subject,
-#     'to': [{'email': user.email, 'name': user.get_full_name()},],
-#     'global_merge_vars': [
-#         {'name':'SUBJECT', 'content': subject},
-#         {'name':'USER_NAME', 'content': user.first_name},
-#         {'name':'NONCE', 'content': nonce},
-#         # etc etc
-#     ],
-# }
-# mail = MandrillTemplateMail("Password Reset", template_content, message)
-# mail.send()
-
 
 @user_not_authenticated
 def register(request):

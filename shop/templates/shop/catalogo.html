@@ -66,19 +66,20 @@
     }
 
     /* Style the buttons */
-    .btn {
+    .btn-catalog {
       border: none;
       outline: none;
-      padding: 12px 16px;
+      padding: 8px 8px;
+      margin: 2px 2px;
       background-image: linear-gradient(to right,#24c6dc 0%, #4a0caf 100%);
       cursor: pointer;
     }
 
-    .btn:hover {
+    .btn-catalog:hover {
       background-color: rgb(112, 112, 112);
     }
 
-    .btn.active {
+    .btn-catalog.active {
       background-color: rgb(60, 128, 152);
       color: white;
     }
@@ -94,42 +95,42 @@
       <hr>
 
       <div id="myBtnContainer">
-        <button class="btn active" onclick="filterSelection('all')"> Mostrar Todos</button>
-        <button class="btn" onclick="filterSelection('smartphones')">SmartPhones</button>
-        <button class="btn" onclick="filterSelection('buds')">Buds</button>
-        <button class="btn" onclick="filterSelection('watch')">Watch</button>
-        <button value="Tablets" class="btn" onclick="filterSelection('tablets')">Tablets</button>
-        <button value="Pantallas" class="btn" onclick="filterSelection('pantallas')">Pantallas</button>
-        <button value="Laptops" class="btn" onclick="filterSelection('laptops')">Laptops</button>
-        <button value="Consolas" class="btn" onclick="filterSelection('consolas')">Consolas</button>
-        <button value="Monitores" class="btn" onclick="filterSelection('monitores')">Monitores</button>
-        <button value="Case" class="btn" onclick="filterSelection('case')">Case</button>
-        <button value="Cpu" class="btn" onclick="filterSelection('procesador')">Cpu</button>
-        <button value="Mother" class="btn" onclick="filterSelection('motherboard')">Mother</button>
-        <button value="RAM" class="btn" onclick="filterSelection('ram')">HHD</button>
-        <button value="SSD" class="btn" onclick="filterSelection('ssd')">SSD</button>
-        <button value="RAM" class="btn" onclick="filterSelection('ram')">RAM</button>
-        <button value="Cooling" class="btn" onclick="filterSelection('Cooling')">Cooling</button>
-        <button value="Fuente" class="btn" onclick="filterSelection('cooling')">Fuente</button>
-        <button value="Fuente" class="btn" onclick="filterSelection('fuente')">Fuente</button>
-        <button value="Mousse" class="btn" onclick="filterSelection('mousse')">Mousse</button>
-        <button value="Silla" class="btn" onclick="filterSelection('sillas')">Silla</button>
-        <button value="Teclados" class="btn" onclick="filterSelection('teclados')">Teclados</button>
-        <button value="Lentes" class="btn" onclick="filterSelection('lentes')">Lentes</button>
-        <button value="Headsets" class="btn" onclick="filterSelection('headsets')">Headsets</button>
-        <button value="Mandos" class="btn" onclick="filterSelection('mandos')">Mandos</button>
-        <!-- <button value="Lavadoras" class="btn" onclick="filterSelection('Lavadoras')">Olla Rocera</button>
-          <button value="Refrigeradoras" class="btn" onclick="filterSelection('Refrigeradoras')">Refrigeradoras</button>
-          <button value="Cocinas" class="btn" onclick="filterSelection('Cocinas')">Cocinas</button> -->
-        <button value="Lavadoras" class="btn" onclick="filterSelection('lavadoras')">Lavadoras</button>
-        <button value="Refrigeradoras" class="btn" onclick="filterSelection('refrigeradoras')">Refrigeradoras</button>
-        <button value="Cocinas" class="btn" onclick="filterSelection('cocinas')">Cocinas</button>
-        <button value="Lavadoras" class="btn" onclick="filterSelection('camas')">Camas</button>
-        <button value="Refrigeradoras" class="btn" onclick="filterSelection('colchon')">Colchon</button>
-        <button value="Lavadoras" class="btn" onclick="filterSelection('taladros')">Taladro</button>
-        <button class="btn" onclick="filterSelection('bicicletas')">Bicicletas</button>
-        <button  class="btn" onclick="filterSelection('maquillaje')">Maquillaje</button>
-        <button  class="btn" onclick="filterSelection('esmaltes')">Esmaltes</button>
+        <button class="btn-catalog active" onclick="filterSelection('all')"> Mostrar Todos</button>
+        <button class="btn-catalog" onclick="filterSelection('smartphones')">SmartPhones</button>
+        <button class="btn-catalog" onclick="filterSelection('buds')">Buds</button>
+        <button class="btn-catalog" onclick="filterSelection('watch')">Watch</button>
+        <button value="Tablets" class="btn-catalog" onclick="filterSelection('tablets')">Tablets</button>
+        <button value="Pantallas" class="btn-catalog" onclick="filterSelection('pantallas')">Pantallas</button>
+        <button value="Laptops" class="btn-catalog" onclick="filterSelection('laptops')">Laptops</button>
+        <button value="Consolas" class="btn-catalog" onclick="filterSelection('consolas')">Consolas</button>
+        <button value="Monitores" class="btn-catalog" onclick="filterSelection('monitores')">Monitores</button>
+        <button value="Case" class="btn-catalog" onclick="filterSelection('case')">Case</button>
+        <button value="Cpu" class="btn-catalog" onclick="filterSelection('procesador')">Cpu</button>
+        <button value="Mother" class="btn-catalog" onclick="filterSelection('motherboard')">Mother</button>
+        <button value="RAM" class="btn-catalog" onclick="filterSelection('ram')">HHD</button>
+        <button value="SSD" class="btn-catalog" onclick="filterSelection('ssd')">SSD</button>
+        <button value="RAM" class="btn-catalog" onclick="filterSelection('ram')">RAM</button>
+        <button value="Cooling" class="btn-catalog" onclick="filterSelection('Cooling')">Cooling</button>
+        <button value="Fuente" class="btn-catalog" onclick="filterSelection('cooling')">Fuente</button>
+        <button value="Fuente" class="btn-catalog" onclick="filterSelection('fuente')">Fuente</button>
+        <button value="Mousse" class="btn-catalog" onclick="filterSelection('mousse')">Mousse</button>
+        <button value="Silla" class="btn-catalog" onclick="filterSelection('sillas')">Silla</button>
+        <button value="Teclados" class="btn-catalog" onclick="filterSelection('teclados')">Teclados</button>
+        <button value="Lentes" class="btn-catalog" onclick="filterSelection('lentes')">Lentes</button>
+        <button value="Headsets" class="btn-catalog" onclick="filterSelection('headsets')">Headsets</button>
+        <button value="Mandos" class="btn-catalog" onclick="filterSelection('mandos')">Mandos</button>
+        <!-- <button value="Lavadoras" class="btn-catalog" onclick="filterSelection('Lavadoras')">Olla Rocera</button>
+          <button value="Refrigeradoras" class="btn-catalog" onclick="filterSelection('Refrigeradoras')">Refrigeradoras</button>
+          <button value="Cocinas" class="btn-catalog" onclick="filterSelection('Cocinas')">Cocinas</button> -->
+        <button value="Lavadoras" class="btn-catalog" onclick="filterSelection('lavadoras')">Lavadoras</button>
+        <button value="Refrigeradoras" class="btn-catalog" onclick="filterSelection('refrigeradoras')">Refrigeradoras</button>
+        <button value="Cocinas" class="btn-catalog" onclick="filterSelection('cocinas')">Cocinas</button>
+        <button value="Lavadoras" class="btn-catalog" onclick="filterSelection('camas')">Camas</button>
+        <button value="Refrigeradoras" class="btn-catalog" onclick="filterSelection('colchon')">Colchon</button>
+        <button value="Lavadoras" class="btn-catalog" onclick="filterSelection('taladros')">Taladro</button>
+        <button class="btn-catalog" onclick="filterSelection('bicicletas')">Bicicletas</button>
+        <button  class="btn-catalog" onclick="filterSelection('maquillaje')">Maquillaje</button>
+        <button  class="btn-catalog" onclick="filterSelection('esmaltes')">Esmaltes</button>
       </div>
 
       <!-- Portfolio Gallery Grid -->
